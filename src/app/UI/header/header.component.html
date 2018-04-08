@@ -1,38 +1,47 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg scrugile-color-main">
+<mdb-navbar SideClass="navbar navbar-expand-lg scrugile-color-main" id="scrugile-header">
 
   <logo>
-    <a class="navbar-brand scrugile-text-color-success scrugile-text-title-small no-padding" href="#">
-      <img src="../../../assets/LOGO-small.png" height="45" width="45"> Scrugile
+    <a class="navbar-brand scrugile-text-color-success scrugile-text-title-small p-0 view hm-zoom" href="#">
+      <img src="../../../assets/LOGO-small.png" height="35" width="35" class="img-fluid">
     </a>
   </logo>
 
   <links *ngIf="true">
     <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item active scrugile-text-color-secondary px-2">
+      <li class="nav-item active scrugile-text-color-secondary px-2 hoverable">
         <a class="nav-link waves-light" mdbRippleRadius>
           Darbų sąrašas
         </a>
       </li>
-      <li class="nav-item scrugile-text-color-secondary px-2">
+      <li class="nav-item scrugile-text-color-secondary px-2 hoverable">
         <a class="nav-link waves-light" mdbRippleRadius>
           Sprintai
         </a>
       </li>
-      <li class="nav-item scrugile-text-color-secondary px-2">
+      <li class="nav-item scrugile-text-color-secondary px-2 hoverable">
         <a class="nav-link waves-light" mdbRippleRadius>
           Scrum lentelė
         </a>
       </li>
-      <li class="nav-item scrugile-text-color-secondary px-2">
+      <li class="nav-item scrugile-text-color-secondary px-2 hoverable">
         <a class="nav-link waves-light" mdbRippleRadius>
           Mano užduotys
         </a>
       </li>
-      <li class="nav-item scrugile-text-color-success px-2 py-1">
-        <a class="fa fa-plus-circle fa-2x"></a>
+      <li class="nav-item scrugile-text-color-success dropdown px-2 py-1 hoverable" dropdown>
+        <a class="fa fa-plus-circle fa-2x" dropdownToggle></a>
+        <div class="dropdown-menu dropdown-menu-right px-2">
+          <a class="dropdown-item waves-light hoverable " mdbRippleRadius>Pridėti pasakojimą</a>
+          <a class="dropdown-item waves-light hoverable" mdbRippleRadius>Pridėti defektą</a>
+          <a class="dropdown-item waves-light hoverable" mdbRippleRadius>Pridėti sprintą</a>
+        </div>
       </li>
-      <li class="nav-item scrugile-text-color-secondary px-2 py-1">
-        <a class="fa fa-user-circle-o fa-2x"></a>
+      <li class="nav-item scrugile-text-color-secondary dropdown px-2 py-1 hoverable" dropdown>
+        <a class="fa fa-user-circle-o fa-2x" dropdownToggle></a>
+        <div class="dropdown-menu dropdown-menu-right px-2">
+          <a class="dropdown-item waves-light hoverable" mdbRippleRadius>Mano paskyra</a>
+          <a class="dropdown-item waves-light hoverable" mdbRippleRadius>Atsijungti</a>
+        </div>
       </li>
     </ul>
   </links>

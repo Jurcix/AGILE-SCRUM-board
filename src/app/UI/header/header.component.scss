@@ -1,4 +1,10 @@
-.no-padding {
-    padding-top: 0;
-    padding-bottom: 0;
+a.navbar-brand:hover {
+    color: #37bc9b
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover,
+.dropdown .dropdown-menu .dropdown-item:active,
+.dropdown .dropdown-menu .dropdown-item:focus {
+    background-color: white;
+    color: #093145 !important;
 }

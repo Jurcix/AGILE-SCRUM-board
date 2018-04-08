@@ -1,146 +1,124 @@
 /* You can add global styles to this file, and also import other style files */
+
 * {
-  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
-  color: #093145;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 130%;
+    font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+    color: #093145;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 130%;
 }
 
 h1 {
-  font-weight: 600;
-  font-size: 40px;
+    font-weight: 600;
+    font-size: 40px;
 }
 
 h2 {
-  font-weight: 600;
-  font-size: 32px;
+    font-weight: 600;
+    font-size: 32px;
 }
 
 h3 {
-  font-weight: 600;
-  font-size: 24px;
+    font-weight: 600;
+    font-size: 24px;
 }
 
 h4 {
-  font-weight: 600;
-  font-size: 18px;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .scrugile-text {
-  &-title {
-    font-weight: 500;
-    font-size: 60px;
-  
-    &-small {
-      font-size: 40px;
+    &-title {
+        font-weight: 500;
+        font-size: 60px;
+        &-small {
+            font-size: 40px;
+        }
     }
-  }
-
-  &-bold {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 140%;
-  }
-
-  &-light {
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 120%;
-  }
-
-  &-heading {
-    font-weight: 400;
-    font-size: 26px;
-
-    &-small {
-      font-weight: 400;
-      font-size: 20px;
+    &-bold {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
     }
-  }
-
-  &-color {
-    &-secondary {
-      color: #F8F8FF
-    }
-
     &-light {
-      color: #3C6478;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 120%;
     }
-
-    &-attention {
-      color: #f76c6c;
+    &-heading {
+        font-weight: 400;
+        font-size: 26px;
+        &-small {
+            font-weight: 400;
+            font-size: 20px;
+        }
     }
-
-    &-success {
-      color: #66cdaa;
+    &-color {
+        &-main {
+            color: #093145;
+        }
+        &-secondary {
+            color: #F8F8FF;
+        }
+        &-light {
+            color: #3C6478;
+        }
+        &-attention {
+            color: #f76c6c;
+        }
+        &-success {
+            color: #66cdaa;
+        }
     }
-  }
 }
 
 .scrugile-color {
-  &-main {
-    background-color: #374785;
-
-    &-alt {
-      background-color: #4b61b5;
+    &-main {
+        background-color: #374785;
+        &-alt {
+            background-color: #4b61b5;
+        }
     }
-  }
-
-  &-secondary {
-    background-color: #66cdaa;
-
-    &-alt {
-      background-color: #c0eadc;
+    &-secondary {
+        background-color: #66cdaa;
+        &-alt {
+            background-color: #c0eadc;
+        }
     }
-  }
-
-  &-attention {
-    background-color: #f76c6c;
-  }
-
-  &-background {
-    background-color: #f5f6f8;
-  
-      &-white {
-        background-color: #ffffff;
-      }
-  }
-
-  &-data {
-    &-purple {
-      background-color: #7b68ee;
-
-      &-light {
-        background-color: #e6e2fc;
-      }
+    &-attention {
+        background-color: #f76c6c;
     }
-
-    &-orange {
-      background-color: #ff7f50;
-
-      &-light {
-        background-color: #ffe2d8;
-      }
+    &-background {
+        background-color: #f5f6f8;
+        &-white {
+            background-color: #ffffff;
+        }
     }
-
-    &-green {
-      background-color: #32cd32;
-
-      &-light {
-        background-color: #d6f5d6;
-      }
+    &-data {
+        &-purple {
+            background-color: #7b68ee;
+            &-light {
+                background-color: #e6e2fc;
+            }
+        }
+        &-orange {
+            background-color: #ff7f50;
+            &-light {
+                background-color: #ffe2d8;
+            }
+        }
+        &-green {
+            background-color: #32cd32;
+            &-light {
+                background-color: #d6f5d6;
+            }
+        }
+        &-blue {
+            background-color: #1e90ff;
+            &-light {
+                background-color: #c8e4ff;
+            }
+        }
     }
-
-    &-blue {
-      background-color: #1e90ff;
-
-      &-light {
-        background-color: #c8e4ff;
-      }
-    }
-  }  
 }
-
-
-
