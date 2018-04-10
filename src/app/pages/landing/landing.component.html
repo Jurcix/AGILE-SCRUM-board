@@ -1,0 +1,55 @@
+<img class="background-image" src="assets/landing-page.jpg">
+
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-1">
+      <button type="button" (click)="onSignUp()" class="btn scrugile-color-secondary waves-light scrugile-text-color-main" mdbRippleRadius>Registracija</button>
+    </div>
+  </div>
+</div>
+
+<div class="container card-padding-top">
+  <div class="row justify-content-end">
+    <div class="col-md-4 scrugile-color-background-white">
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+
+        <div class="row">
+          <div class="col mt-4 mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-email" mdbActive type="email" formControlName="email" class="form-control">
+              <label for="user-email">El. paštas</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-pssword" mdbActive type="password" formControlName="password" class="form-control">
+              <label for="user-password">Slaptažodis</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col mt-4 mx-5 align-text-center">
+            <span>Arba prisijunkite naudojant:</span>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-sm-4 mt-4">
+            <a class="fa fa-google-plus-square fa-3x google-color"></a>
+            <a class="fa fa-facebook-square fa-3x facebook-color "></a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col my-3">
+            <button type="submit" class="btn btn-block mb-0 scrugile-color-secondary waves-light scrugile-text-color-main" mdbRippleRadius>Prisijungti</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

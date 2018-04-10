@@ -1,0 +1,57 @@
+select {
+    font-family: inherit;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+select:focus {
+    border-bottom: 2px solid #66cdaa;
+    outline: none
+}
+
+.label-display {
+    display: inline;
+}
+
+.radio-margin {
+    margin-left: 25%;
+}
+
+.disabled-option {
+    color: #757575;
+}
+
+.form-colors input:focus {
+    border-bottom: 1px solid #66cdaa;
+    box-shadow: 0 1px 0 0 #66cdaa;
+}
+
+input:focus:not([readonly])+label {
+    color: #66cdaa;
+}
+
+img.background-image {
+    /* Set rules to fill background */
+    min-height: 100%;
+    min-width: 1024px;
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+@media screen and (max-width: 1024px) {
+    /* Specific to this particular image */
+    img.background-image {
+        left: 50%;
+        margin-left: -512px;
+        /* 50% */
+    }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 })
 
 export class HeaderComponent {
+  @Input() isLoggedIn = false;
+  @Input() isProjectSelected = false;
 }

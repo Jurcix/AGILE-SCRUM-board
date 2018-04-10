@@ -1,4 +1,4 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg scrugile-color-main" id="scrugile-header">
+<mdb-navbar *ngIf="isLoggedIn" SideClass="navbar navbar-expand-lg scrugile-color-main" id="scrugile-header">
 
   <logo>
     <a class="navbar-brand scrugile-text-color-success scrugile-text-title-small p-0 view hm-zoom" href="#">
@@ -6,7 +6,7 @@
     </a>
   </logo>
 
-  <links *ngIf="true">
+  <links *ngIf="isProjctSelected">
     <ul class="nav navbar-nav ml-auto">
       <li class="nav-item active scrugile-text-color-secondary px-2 hoverable">
         <a class="nav-link waves-light" mdbRippleRadius>
