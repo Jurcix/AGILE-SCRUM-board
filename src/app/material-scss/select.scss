@@ -1,0 +1,14 @@
+select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+select:focus {
+  border-bottom: 2px solid #66cdaa;
+  outline: none
+}
+

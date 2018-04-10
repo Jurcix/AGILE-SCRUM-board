@@ -1,0 +1,115 @@
+<img class="background-image" src="assets/landing-page.jpg">
+
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-1">
+      <button type="button" (click)="goToLogin()" class="btn scrugile-color-secondary waves-light scrugile-text-color-main" mdbRippleRadius>Prisijungti</button>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="signUpForm" (ngSubmit)="onSignUp(signUpForm.value)">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 scrugile-color-background-white">
+
+        <div class="row">
+          <div class="col mt-5 mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-name" mdbActive type="text" formControlName="name" class="form-control">
+              <label for="user-name">Vartotojo vardas</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-lastname" mdbActive type="text" formControlName="lastName" class="form-control">
+              <label for="user-lastname">Vartotojo pavardė</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-email" mdbActive type="email" formControlName="email" class="form-control">
+              <label for="user-email">El. paštas</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5 mt-1">
+            <select id="user-birth-year" formControlName="birthYear" class="form-control">
+              <option value="" class="disabled-option" disabled selected>Gimimo metai</option>
+              <option *ngFor="let date of birthYear" [value]="date">{{ date }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5 mb-3">
+            <div class="md-form form-sm form-colors label-display">
+              <label>Lytis:</label>
+              <div class="md-radio md-radio-inline radio-margin mt-0">
+                <input id="user-gender-male" value="male" type="radio" formControlName="gender" class="form-control">
+                <label for="user-gender-male">Vyras</label>
+                <input id="user-gender-female" value="female" type="radio" formControlName="gender" class="form-control">
+                <label for="user-gender-female">Moteris</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <select id="user-location" formControlName="location" class="form-control">
+              <option value="" class="disabled-option" disabled selected>Gyvenamoji vieta</option>
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-phone" mdbActive type="text" formControlName="phone" class="form-control">
+              <label for="user-phone">Telefono nr.</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <select id="user-occupation" formControlName="occupation" class="form-control">
+                <option value="" class="disabled-option" disabled selected>Dabartinė veikla</option>
+                <option *ngFor="let occupation of occupations" [value]="occupation">{{ occupation }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-password" mdbActive type="password" formControlName="password" class="form-control">
+              <label for="user-password">Slaptažodis</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <div class="md-form form-sm form-colors">
+              <input id="user-confirm-password" mdbActive type="password" formControlName="confirmPassword" class="form-control">
+              <label for="user-confirm-password">Pakartokite slaptažodį</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col my-3">
+            <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-block mb-0 scrugile-color-secondary waves-light scrugile-text-color-main"
+              mdbRippleRadius>Registruotis</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
