@@ -25,7 +25,7 @@ export const InitialProfileState: ProfileState = {
 
 export function reducer(state = InitialProfileState, action: ProfileActions) {
   switch (action.type) {
-    case LOGIN.SUCCEESS || SIGNUP.SUCCEESS:
+    case LOGIN.SUCCESS || SIGNUP.SUCCESS:
       return merge(state, action.payload);
   }
 }

@@ -1,0 +1,42 @@
+<div class="row mx-0 justify-content-end scrugile-color-background">
+  <div class="col-md-4">
+    <div class="card testimonial-card">
+      <div class="card-up scrugile-color-main"></div>
+      <div class="avatar white">
+        <img src="https://orig00.deviantart.net/066e/f/2012/058/6/d/my_little_pony___rainbow_dash_b2_by_dj_fahr-d4r504l.png" class="rounded-circle">
+      </div>
+      <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile(profileForm.value)" (dblclick)="toggleMode()">
+        <div class="card-body">
+          <h4 *ngIf="!editMode" class="card-title">{{user.name}} {{user.lastName}}</h4>
+          <div *ngIf="editMode" class="name-display form-colors">
+            <input id="user-name" mdbActive type="text" formControlName="name" class="form-control name-text-align pr-1 my-0" placeholder="Vardas">
+            <input id="user-lastname" mdbActive type="text" formControlName="lastName" class="form-control my-0" placeholder="Pavardė">
+          </div>
+          <hr>
+
+          <div class="md-form form-sm form-colors">
+            <input id="user-email" mdbActive type="email" formControlName="email" class="form-control center-text" placeholder="El. paštas">
+            <input id="user-birth-year" mdbActive type="text" formControlName="birthYear" class="form-control center-text" placeholder="Gimimo metai">
+            <input id="user-gender" mdbActive type="text" formControlName="gender" class="form-control center-text">
+            <input *ngIf="!editMode" id="user-location" mdbActive type="text" formControlName="location" class="form-control center-text"
+              placeholder="Gyvenamoji vieta">
+            <select *ngIf="editMode" id="user-location-select" formControlName="location" class="form-control center-text-select">
+              <option value="profileForm.location" selected>{{ profileForm.location }}</option>
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+            <input id="user-phone" mdbActive type="text" formControlName="phone" class="form-control center-text" placeholde="Telefono nr.">
+            <input *ngIf="!editMode" id="user-occupation" mdbActive type="text" formControlName="occupation" class="form-control center-text">
+            <select *ngIf="editMode" id="user-occupation-select" formControlName="occupation" class="form-control center-text-select">
+              <option value="profileForm.occupation" selected>{{ profileForm.occupation }}</option>
+              <option *ngFor="let occupation of occupations" [value]="occupation">{{ occupation }}</option>
+            </select>
+          </div>
+
+          <button type="submit" [disabled]="profileForm.pristine || !profileForm.valid " class="btn btn-block mb-0 scrugile-color-secondary waves-light scrugile-text-color-main"
+          mdbRippleRadius>Išsaugoti</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

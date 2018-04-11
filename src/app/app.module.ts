@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -16,6 +17,7 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from './UI/header/header.module';
 import { LandingModule } from './pages/landing/landing.module';
 import { SignUpModule } from './pages/sign-up/sign-up.module';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
 
 
 
@@ -35,11 +37,12 @@ import { SignUpModule } from './pages/sign-up/sign-up.module';
       RouterEffects,
     ]),
     StoreRouterConnectingModule,
+    StoreDevtoolsModule.instrument(),
 
     HeaderModule,
     LandingModule,
     SignUpModule,
-
+    DashboardModule,
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]

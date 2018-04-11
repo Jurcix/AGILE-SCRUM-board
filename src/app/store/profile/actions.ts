@@ -3,13 +3,13 @@ import { Action } from '@ngrx/store';
 
 export const LOGIN = {
   REQUEST: '[Login] requested',
-  SUCCEESS: '[Login] successful',
+  SUCCESS: '[Login] successful',
   ERROR: '[Login] failed'
 };
 
 export const SIGNUP = {
   REQUEST: '[Signup] requested',
-  SUCCEESS: '[Signup] successful',
+  SUCCESS: '[Signup] successful',
   ERROR: '[Signup] failed'
 };
 
@@ -20,9 +20,9 @@ export class LoginRequest implements Action {
 }
 
 export class LoginSuccess implements Action {
-  type = LOGIN.SUCCEESS;
+  type = LOGIN.SUCCESS;
 
-  constructor(public payload: UserProfile) { }
+  constructor(public payload: any) { }
 }
 
 export class LoginError implements Action {
@@ -38,7 +38,7 @@ export class SignupRequest implements Action {
 }
 
 export class SignupSuccess implements Action {
-  type = SIGNUP.SUCCEESS;
+  type = SIGNUP.SUCCESS;
 
   constructor(public payload: UserProfile) { }
 }
