@@ -28,6 +28,12 @@ export interface UserProfile {
   occupation?: string;
 }
 
+export interface UpdatePassword {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface AuthenticationToken {
   accessToken: string;
   refreshToken: string;

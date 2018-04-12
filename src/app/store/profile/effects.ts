@@ -1,6 +1,6 @@
 import { RouterActionsUnion, Go } from './../app-routes/actions';
 import { AppState } from './../index';
-import { UserProfile, UserWithToken, UserSignUP } from './../../types/profile';
+import { UserProfile, UserWithToken, UserSignUP, UpdatePassword } from './../../types/profile';
 import { Action, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -91,6 +91,20 @@ export class ProfileEffects {
         return this.http.patch(`${environment.apiURL}v1/users/update-user`, payload)
           .pipe(
             map((data: UserProfile) => new ProfileActions.ProfileUpdateSuccess(data)),
+            catchError(err => of(new ProfileActions.ProfileUpdateError(err))),
+        );
+      })
+    );
+
+  @Effect()
+  $updatePasswordRequest: Observable<ProfileActions.ProfileActions> = this.actions$
+    .ofType(ProfileActions.PROFILE.UPDATE_PASSWORD.REQUEST)
+    .pipe(
+      map((action: ProfileActions.PasswordUpdateRequest) => action.payload),
+      switchMap((payload: UpdatePassword) => {
+        return this.http.patch(`${environment.apiURL}v1/users/update-password`, payload)
+          .pipe(
+            map(() => new ProfileActions.PasswordUpdateSuccess()),
             catchError(err => of(new ProfileActions.ProfileUpdateError(err))),
         );
       })

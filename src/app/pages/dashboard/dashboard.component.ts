@@ -1,6 +1,15 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { UpdatePassword } from './../../types/profile';
+import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { merge } from 'ramda';
+import { merge, pathOr } from 'ramda';
 import { UserProfile } from '../../types';
 
 @Component({
@@ -8,12 +17,14 @@ import { UserProfile } from '../../types';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
   @Input() user: UserProfile;
 
   @Output() updateProfile = new EventEmitter<UserProfile>();
+  @Output() updatePassword = new EventEmitter<UpdatePassword>();
 
   profileForm: FormGroup;
+  passwordForm: FormGroup;
   countries: string[];
   occupations: string[];
   editMode = false;
@@ -24,36 +35,48 @@ export class DashboardComponent implements OnInit {
     this.countries = [
       'Lietuva', 'Anglija', 'Amerika', 'Niekur',
     ];
-
     this.occupations = [
       'Dirbantis', 'Studentas', 'Bedarbis'
     ];
 
-    this.buildForm();
+    this.buildProfileForm();
+    this.buildPasswordForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (pathOr(null, ['user', 'currentValue'], changes) && !changes.user.firstChange) {
+      this.resetProfileForm();
+    }
   }
 
   toggleMode() {
     this.editMode = !this.editMode;
-    const state = this.editMode ? 'enable' : 'disable';
+    this.changePropertiesState();
 
+    if (!this.editMode) {
+      this.resetProfileForm();
+    }
+  }
+
+  changePropertiesState() {
+    const state = this.editMode ? 'enable' : 'disable';
     Object.keys(this.profileForm.controls).forEach((controlName) => {
       if (controlName !== 'birthYear' && controlName !== 'gender') {
         this.profileForm.controls[controlName][state]();
-      }
-      if (!this.editMode) {
-        this.resetForm();
       }
     });
   }
 
   onUpdateProfile(updatedProfileForm: UserProfile) {
     this.updateProfile.emit(updatedProfileForm);
-    this.user = updatedProfileForm;
     this.editMode = false;
-    this.resetForm();
   }
 
-  private resetForm() {
+  onUpdatePassword(updatePassword: UpdatePassword) {
+    this.updatePassword.emit(updatePassword);
+  }
+
+  private resetProfileForm() {
     this.profileForm.reset({
       name: { value: this.user.name, disabled: true },
       lastName: { value: this.user.lastName, disabled: true },
@@ -66,7 +89,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  private buildForm() {
+  private buildProfileForm() {
     this.profileForm = this.fb.group({
       name: [{ value: this.user.name, disabled: true }, Validators.required],
       lastName: [{ value: this.user.lastName, disabled: true }, Validators.required],
@@ -76,6 +99,22 @@ export class DashboardComponent implements OnInit {
       location: [{ value: this.user.location, disabled: true }],
       phone: [{ value: this.user.phone, disabled: true }, Validators.required],
       occupation: [{ value: this.user.occupation, disabled: true }],
+    });
+  }
+
+  private buildPasswordForm() {
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
+  }
+
+  private resetPasswordForm() {
+    this.passwordForm.reset({
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
     });
   }
 

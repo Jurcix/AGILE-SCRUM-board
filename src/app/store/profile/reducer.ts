@@ -23,7 +23,7 @@ export const InitialProfileState: ProfileState = {
   location: '',
 };
 
-export function reducer(state = InitialProfileState, action: ProfileActions): ProfileState {
+export function reducer(state = InitialProfileState, action: any): ProfileState {
   switch (action.type) {
     case LOGIN.SUCCESS:
       return merge(state, action.payload);

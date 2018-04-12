@@ -17,7 +17,7 @@
           <div class="md-form form-sm">
             <input mdbActive type="text" id="project-name" class="form-control">
             <label for="project-name">Projekto pavadinimas</label>
-          </div>         
+          </div>
 
           <div class="text-center pt-4">
             <button class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
@@ -65,9 +65,9 @@
             </select>
           </div>
 
-          <a class="text-underline" (click)="passwordForm.show()"> Keisti slaptažodį </a>
+          <a *ngIf="!editMode" class="text-underline" (click)="passwordFormModal.show()"> Keisti slaptažodį </a>
 
-          <button type="submit" class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
+          <button type="submit" [disabled]="profileForm.pristine || !profileForm.valid" class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
             mdbRippleRadius>Išsaugoti</button>
 
         </div>
@@ -77,7 +77,7 @@
 </div>
 
 
-<div mdbModal #passwordForm="mdb-modal" [config]="{ backdrop: 'static' }" class="modal fade" id="password-form-modal" tabindex="-1"
+<div mdbModal #passwordFormModal="mdb-modal" [config]="{ backdrop: 'static' }" class="modal fade" id="password-form-modal" tabindex="-1"
   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
     <div class="modal-content">
@@ -86,28 +86,31 @@
         <h4 class="title"> Slaptažodžio keitimas </h4>
       </div>
 
-      <div class="modal-body mb-0 mx-4 form-colors">
-        <div class="md-form form-sm">
-          <input mdbActive type="password" id="old-password" class="form-control">
-          <label for="old-password">Senasis slaptažodis</label>
-        </div>
+      <form [formGroup]="passwordForm" (ngSubmit)="onUpdatePassword(passwordForm.value); passwordFormModal.hide(); resetPasswordForm()">
+        <div class="modal-body mb-0 mx-4 form-colors">
+          <div class="md-form form-sm">
+            <input mdbActive type="password" id="old-password" formControlName="oldPassword" class="form-control">
+            <label for="old-password">Senasis slaptažodis</label>
+          </div>
 
-        <div class="md-form form-sm">
-          <input mdbActive type="password" id="new-password" class="form-control">
-          <label for="new-password">Naujasis slaptažodis</label>
-        </div>
+          <div class="md-form form-sm">
+            <input mdbActive type="password" id="new-password" formControlName="newPassword" class="form-control">
+            <label for="new-password">Naujasis slaptažodis</label>
+          </div>
 
-        <div class="md-form form-sm">
-          <input mdbActive type="password" id="confirm-new-password" class="form-control">
-          <label for="confirm-new-password">Patvirtinkite naują slaptažodį</label>
-        </div>
+          <div class="md-form form-sm">
+            <input mdbActive type="password" id="confirm-new-password" formControlName="confirmPassword" class="form-control">
+            <label for="confirm-new-password">Patvirtinkite naują slaptažodį</label>
+          </div>
 
-        <div class="text-center pt-4">
-          <button class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
-          <button (click)="passwordForm.hide()" class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>
-            Atšaukti </button>
+          <div class="text-center pt-4">
+            <button type="submit" class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
+            <button (click)="passwordFormModal.hide(); resetPasswordForm()" class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>
+              Atšaukti </button>
+          </div>
+
         </div>
-      </div>
+      </form>
 
     </div>
   </div>
