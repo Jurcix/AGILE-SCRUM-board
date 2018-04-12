@@ -1,4 +1,4 @@
-import { UserLogin } from './../../types/profile';
+import { UserLogin, UserSignUP } from './../../types/profile';
 import { LoginRequest, SignupRequest } from './../../store/profile/actions';
 import { Go } from './../../store/app-routes/actions';
 import { Component } from '@angular/core';
@@ -24,7 +24,7 @@ export class SignUpContainer {
     this.store.dispatch(new Go({ path: ['home'] }));
   }
 
-  signUp(registrationInfo) {
+  signUp(registrationInfo: UserSignUP) {
     this.store.dispatch(new SignupRequest(registrationInfo));
   }
 }

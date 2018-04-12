@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-  @Output() signUp: EventEmitter<void> = new EventEmitter<void>();
+  @Output() signUp = new EventEmitter<void>();
   @Output() login = new EventEmitter<UserLogin>();
 
   loginForm: FormGroup;

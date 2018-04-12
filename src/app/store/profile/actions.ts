@@ -1,4 +1,4 @@
-import { UserLogin, UserProfile } from './../../types/profile';
+import { UserLogin, UserProfile, UserWithToken, UserSignUP } from './../../types/profile';
 import { Action } from '@ngrx/store';
 
 export const LOGIN = {
@@ -10,14 +10,21 @@ export const LOGIN = {
 
 export const SIGNUP = {
   REQUEST: '[Signup] requested',
-  SUCCESS: '[Signup] successful',
+  // SUCCESS: '[Signup] successful',
   ERROR: '[Signup] failed'
 };
 
-export const PROFILE_UPDATE = {
-  REQUEST: '[Profile update] requested',
-  SUCCESS: '[Profile update] successful',
-  ERROR: '[Profile update] failed'
+export const PROFILE = {
+  LOAD: {
+    REQUEST: '[Profile Load] requested',
+    SUCCESS: '[Profile Load] success',
+    ERROR: '[Profile Load] error'
+  },
+  UPDATE: {
+    REQUEST: '[Profile update] requested',
+    SUCCESS: '[Profile update] successful',
+    ERROR: '[Profile update] failed'
+  }
 };
 
 export class LoginRequest implements Action {
@@ -29,13 +36,13 @@ export class LoginRequest implements Action {
 export class LoginStoreToken implements Action {
   type = LOGIN.STORE_TOKEN;
 
-  constructor(public payload) { }
+  constructor(public payload: UserWithToken) { }
 }
 
 export class LoginSuccess implements Action {
   type = LOGIN.SUCCESS;
 
-  constructor(public payload: any) { }
+  constructor(public payload: UserProfile) { }
 }
 
 export class LoginError implements Action {
@@ -47,13 +54,7 @@ export class LoginError implements Action {
 export class SignupRequest implements Action {
   type = SIGNUP.REQUEST;
 
-  constructor(public payload: UserProfile) { }
-}
-
-export class SignupSuccess implements Action {
-  type = SIGNUP.SUCCESS;
-
-  constructor(public payload: UserProfile) { }
+  constructor(public payload: UserSignUP) { }
 }
 
 export class SignupError implements Action {
@@ -63,26 +64,45 @@ export class SignupError implements Action {
 }
 
 export class ProfileUpdateRequest implements Action {
-  type = PROFILE_UPDATE.REQUEST;
+  type = PROFILE.UPDATE.REQUEST;
 
-  constructor(public payload: any) { }
+  constructor(public payload: UserProfile) { }
 }
 
 export class ProfileUpdateSuccess implements Action {
-  type = PROFILE_UPDATE.SUCCESS;
+  type = PROFILE.UPDATE.SUCCESS;
+
+  constructor(public payload: UserProfile) { }
+}
+
+export class ProfileUpdateError implements Action {
+  type = PROFILE.UPDATE.ERROR;
+
+  constructor(public payload: Error) { }
+}
+
+export class ProfileLoadRequest implements Action {
+  type = PROFILE.LOAD.REQUEST;
 
   constructor(public payload: any) { }
 }
 
-export class ProfileUpdateError implements Action {
-  type = PROFILE_UPDATE.ERROR;
+export class ProfileLoadSuccess implements Action {
+  type = PROFILE.LOAD.SUCCESS;
 
-  constructor(public payload: any) { }
+  constructor(public payload: UserProfile) { }
+}
+
+export class ProfileLoadError implements Action {
+  type = PROFILE.LOAD.ERROR;
+
+  constructor(public payload: Error) { }
 }
 
 export type ProfileActions =
   LoginRequest | LoginStoreToken | LoginSuccess | LoginError |
-  SignupRequest | SignupSuccess | SignupError |
-  ProfileUpdateRequest | ProfileUpdateSuccess | ProfileUpdateError;
+  SignupRequest |  SignupError |
+  ProfileUpdateRequest | ProfileUpdateSuccess | ProfileUpdateError |
+  ProfileLoadRequest | ProfileLoadSuccess | ProfileLoadError;
 
 

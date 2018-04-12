@@ -1,5 +1,6 @@
+import { RouterActionsUnion, Go } from './../app-routes/actions';
 import { AppState } from './../index';
-import { UserProfile } from './../../types/profile';
+import { UserProfile, UserWithToken, UserSignUP } from './../../types/profile';
 import { Action, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,7 +11,6 @@ import { of } from 'rxjs/observable/of';
 
 import { environment } from '../../../environments/environment';
 import * as ProfileActions from './actions';
-import { Go } from '../app-routes';
 
 
 @Injectable()
@@ -23,44 +23,44 @@ export class ProfileEffects {
   ) { }
 
   @Effect()
-  $login: Observable<ProfileActions.ProfileActions> = this.actions$
+  $loginRequest: Observable<ProfileActions.ProfileActions> = this.actions$
     .ofType(ProfileActions.LOGIN.REQUEST)
     .pipe(
       map((action: ProfileActions.LoginRequest) => action.payload),
       switchMap((payload) => {
         return this.http.post(`${environment.apiURL}v1/auth/login`, payload)
           .pipe(
-            map((data: any) => new ProfileActions.LoginStoreToken(data)),
+            map((data: UserWithToken) => new ProfileActions.LoginStoreToken(data)),
             catchError(err => of(new ProfileActions.LoginError(err))),
         );
       })
     );
 
   @Effect()
-  $loginSuccess: Observable<ProfileActions.ProfileActions> = this.actions$
+  $loginStoreToken: Observable<ProfileActions.ProfileActions | Go> = this.actions$
     .ofType(ProfileActions.LOGIN.STORE_TOKEN)
     .pipe(
       map((action: ProfileActions.LoginStoreToken) => action.payload),
-      tap((payload) => {
+      tap((payload: UserWithToken) => {
         sessionStorage.setItem('accessToken', payload.token.accessToken);
         sessionStorage.setItem('refreshToken', payload.token.refreshToken);
       }),
-      mergeMap((payload) => [
+      mergeMap((payload: UserWithToken) => [
         new Go({ path: ['dashboard'] }),
         new ProfileActions.LoginSuccess(payload.user)
       ])
     );
 
   @Effect()
-  $signup: Observable<ProfileActions.ProfileActions> = this.actions$
+  $signupRequest: Observable<ProfileActions.ProfileActions> = this.actions$
     .ofType(ProfileActions.SIGNUP.REQUEST)
     .pipe(
       map((action: ProfileActions.SignupRequest) => action.payload),
-      switchMap((payload) => {
+      switchMap((payload: UserSignUP) => {
         return this.http.post(`${environment.apiURL}v1/auth/register`, payload)
           .pipe(
-            map((data: UserProfile) => {
-              return new ProfileActions.SignupSuccess(data);
+            map((data: UserWithToken) => {
+              return new ProfileActions.LoginStoreToken(data);
             }),
             catchError(err => of(new ProfileActions.SignupError(err))),
         );
@@ -68,14 +68,29 @@ export class ProfileEffects {
     );
 
   @Effect()
+  $loadProfileRequest: Observable<ProfileActions.ProfileActions> = this.actions$
+    .ofType(ProfileActions.PROFILE.LOAD.REQUEST)
+    .pipe(
+      switchMap(() => {
+        return this.http.get(`${environment.apiURL}v1/users/profile`)
+          .pipe(
+            map((data: UserProfile) => {
+              return new ProfileActions.ProfileLoadSuccess(data);
+            }),
+            catchError(err => of(new ProfileActions.ProfileLoadError(err))),
+          );
+      })
+    );
+
+  @Effect()
   $updateProfileRequest: Observable<ProfileActions.ProfileActions> = this.actions$
-    .ofType(ProfileActions.PROFILE_UPDATE.REQUEST)
+    .ofType(ProfileActions.PROFILE.UPDATE.REQUEST)
     .pipe(
       map((action: ProfileActions.ProfileUpdateRequest) => action.payload),
-      switchMap((payload) => {
+      switchMap((payload: UserProfile) => {
         return this.http.patch(`${environment.apiURL}v1/users/update-user`, payload)
           .pipe(
-            map((data: any) => new ProfileActions.ProfileUpdateSuccess(data)),
+            map((data: UserProfile) => new ProfileActions.ProfileUpdateSuccess(data)),
             catchError(err => of(new ProfileActions.ProfileUpdateError(err))),
         );
       })

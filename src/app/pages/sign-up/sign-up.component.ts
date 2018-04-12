@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { range } from 'ramda';
+import { UserSignUP } from '../../types';
 
 @Component({
   selector: 'app-sign-up-component',
@@ -9,7 +10,7 @@ import { range } from 'ramda';
 })
 export class SignUpComponent implements OnInit {
   @Output() login = new EventEmitter<void>();
-  @Output() signUp = new EventEmitter();
+  @Output() signUp = new EventEmitter<UserSignUP>();
 
   signUpForm: FormGroup;
   birthYear: number[];
@@ -48,7 +49,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  onSignUp(registrationInfo) {
+  onSignUp(registrationInfo: UserSignUP) {
     this.signUp.emit(registrationInfo);
   }
 

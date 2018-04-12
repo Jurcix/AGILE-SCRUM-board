@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { merge } from 'ramda';
+import { UserProfile } from '../../types';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -8,24 +9,14 @@ import { merge } from 'ramda';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  @Input() user;
+  @Input() user: UserProfile;
 
-  @Output() updateProfile = new EventEmitter<any>();
+  @Output() updateProfile = new EventEmitter<UserProfile>();
 
   profileForm: FormGroup;
   countries: string[];
   occupations: string[];
   editMode = false;
-  // user = {
-  //   name: 'Raiunbow',
-  //   lastName: 'Dash',
-  //   email: 'email@email.com',
-  //   birthYear: '1993',
-  //   gender: 'Female',
-  //   location: 'Lietuva',
-  //   phone: '1236456789',
-  //   occupation: 'Studentas',
-  // };
 
   constructor(private fb: FormBuilder) { }
 
@@ -55,11 +46,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  onUpdateProfile(updatedProfileForm) {
-    // this.user = merge(this.user, updatedProfileForm);
+  onUpdateProfile(updatedProfileForm: UserProfile) {
     this.updateProfile.emit(updatedProfileForm);
-    this.resetForm();
+    this.user = updatedProfileForm;
     this.editMode = false;
+    this.resetForm();
   }
 
   private resetForm() {

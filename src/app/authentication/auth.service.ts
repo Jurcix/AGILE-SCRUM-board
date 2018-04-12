@@ -6,6 +6,7 @@ import { AppState } from '../store';
 import { getUserEmail } from '../store/profile';
 import { Observable } from 'rxjs/Observable';
 import { map, catchError, take } from 'rxjs/operators';
+import { AuthenticationToken } from '../types';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +33,7 @@ export class AuthService {
     return this.http.post(`${environment.apiURL}v1/auth/refresh-token`,
       { email, refreshToken }, { headers })
       .pipe(
-        map((payload: any) => {
+        map((payload: AuthenticationToken) => {
           sessionStorage.setItem('accessToken', payload.accessToken);
           sessionStorage.setItem('refreshToken', payload.refreshToken);
           this.currentToken = payload.accessToken;
