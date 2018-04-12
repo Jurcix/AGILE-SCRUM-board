@@ -9,7 +9,8 @@ import {
   HttpResponse,
   HttpSentEvent,
   HttpUserEvent,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpEvent
 } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -28,7 +29,7 @@ export class RequestInterceptorService implements HttpInterceptor {
     return req.clone({ setHeaders: { Authorization: 'Bearer ' + token } });
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.method === 'POST' || req.method === 'PATCH') {
       req.headers.append('Content-Type', 'application/json');
     }
