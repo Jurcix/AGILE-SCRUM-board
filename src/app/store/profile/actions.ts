@@ -3,14 +3,21 @@ import { Action } from '@ngrx/store';
 
 export const LOGIN = {
   REQUEST: '[Login] requested',
-  SUCCEESS: '[Login] successful',
+  STORE_TOKEN: '[Login] store token',
+  SUCCESS: '[Login] successful',
   ERROR: '[Login] failed'
 };
 
 export const SIGNUP = {
   REQUEST: '[Signup] requested',
-  SUCCEESS: '[Signup] successful',
+  SUCCESS: '[Signup] successful',
   ERROR: '[Signup] failed'
+};
+
+export const PROFILE_UPDATE = {
+  REQUEST: '[Profile update] requested',
+  SUCCESS: '[Profile update] successful',
+  ERROR: '[Profile update] failed'
 };
 
 export class LoginRequest implements Action {
@@ -19,10 +26,16 @@ export class LoginRequest implements Action {
   constructor(public payload: UserLogin) { }
 }
 
-export class LoginSuccess implements Action {
-  type = LOGIN.SUCCEESS;
+export class LoginStoreToken implements Action {
+  type = LOGIN.STORE_TOKEN;
 
-  constructor(public payload: UserProfile) { }
+  constructor(public payload) { }
+}
+
+export class LoginSuccess implements Action {
+  type = LOGIN.SUCCESS;
+
+  constructor(public payload: any) { }
 }
 
 export class LoginError implements Action {
@@ -38,7 +51,7 @@ export class SignupRequest implements Action {
 }
 
 export class SignupSuccess implements Action {
-  type = SIGNUP.SUCCEESS;
+  type = SIGNUP.SUCCESS;
 
   constructor(public payload: UserProfile) { }
 }
@@ -49,8 +62,27 @@ export class SignupError implements Action {
   constructor(public payload: Error) { }
 }
 
+export class ProfileUpdateRequest implements Action {
+  type = PROFILE_UPDATE.REQUEST;
+
+  constructor(public payload: any) { }
+}
+
+export class ProfileUpdateSuccess implements Action {
+  type = PROFILE_UPDATE.SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class ProfileUpdateError implements Action {
+  type = PROFILE_UPDATE.ERROR;
+
+  constructor(public payload: any) { }
+}
+
 export type ProfileActions =
-  LoginRequest | LoginSuccess | LoginError |
-  SignupRequest | SignupSuccess | SignupError;
+  LoginRequest | LoginStoreToken | LoginSuccess | LoginError |
+  SignupRequest | SignupSuccess | SignupError |
+  ProfileUpdateRequest | ProfileUpdateSuccess | ProfileUpdateError;
 
 

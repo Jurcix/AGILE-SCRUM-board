@@ -1,4 +1,4 @@
-import { ProfileActions, LOGIN, SIGNUP } from './actions';
+import { ProfileActions, LOGIN, SIGNUP, PROFILE_UPDATE } from './actions';
 import { merge } from 'ramda';
 
 export interface ProfileState {
@@ -25,7 +25,11 @@ export const InitialProfileState: ProfileState = {
 
 export function reducer(state = InitialProfileState, action: ProfileActions) {
   switch (action.type) {
-    case LOGIN.SUCCEESS || SIGNUP.SUCCEESS:
+    case LOGIN.SUCCESS || SIGNUP.SUCCESS:
+      return merge(state, action.payload);
+    case PROFILE_UPDATE.SUCCESS:
       return merge(state, action.payload);
   }
+  return state;
 }
+

@@ -30,7 +30,7 @@ select:focus {
 }
 
 input:focus:not([readonly])+label {
-    color: #66cdaa;
+    color: #66cdaa !important;
 }
 
 img.background-image {
