@@ -1,4 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './authentication/auth.service';
+import { RequestInterceptorService } from './authentication/request-interceptor.service';
+import { reducers } from './store/index';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -9,7 +12,6 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { appRoutes } from './app-routes/app-routes';
-import { reducers } from './store';
 import { CustomSerializer, RouterEffects } from './store/app-routes';
 import { ProfileEffects } from './store/profile';
 
@@ -44,7 +46,18 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
     SignUpModule,
     DashboardModule,
   ],
-  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
+  providers: [
+    {
+      provide: RouterStateSerializer,
+      useClass: CustomSerializer
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptorService,
+      multi: true,
+    },
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

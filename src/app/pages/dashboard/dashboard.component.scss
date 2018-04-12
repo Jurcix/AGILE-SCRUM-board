@@ -26,10 +26,18 @@ select:focus {
     box-shadow: 0 1px 0 0 #66cdaa;
 }
 
-.name-display {
+input:focus:not([readonly])+label {
+    color: #66cdaa !important;
+}
+
+en .name-display {
     display: inline-flex;
 }
 
 .name-text-align {
     text-align: end;
+}
+
+.text-underline {
+    text-decoration: underline !important;
 }

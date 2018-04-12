@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { merge } from 'ramda';
 
@@ -8,20 +8,24 @@ import { merge } from 'ramda';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  @Input() user;
+
+  @Output() updateProfile = new EventEmitter<any>();
+
   profileForm: FormGroup;
   countries: string[];
   occupations: string[];
   editMode = false;
-  user = {
-    name: 'Raiunbow', 
-      lastName: 'Dash',
-      email: 'email@email.com',
-      birthYear: '1993',
-      gender: 'Female', 
-      location: 'Lietuva',
-      phone: '1236456789',
-      occupation: 'Studentas',
-  }
+  // user = {
+  //   name: 'Raiunbow',
+  //   lastName: 'Dash',
+  //   email: 'email@email.com',
+  //   birthYear: '1993',
+  //   gender: 'Female',
+  //   location: 'Lietuva',
+  //   phone: '1236456789',
+  //   occupation: 'Studentas',
+  // };
 
   constructor(private fb: FormBuilder) { }
 
@@ -42,20 +46,18 @@ export class DashboardComponent implements OnInit {
     const state = this.editMode ? 'enable' : 'disable';
 
     Object.keys(this.profileForm.controls).forEach((controlName) => {
-      if (controlName !== 'birthYear' && controlName !== 'gender') { 
+      if (controlName !== 'birthYear' && controlName !== 'gender') {
         this.profileForm.controls[controlName][state]();
       }
+      if (!this.editMode) {
+        this.resetForm();
+      }
     });
-
-
-    console.log(this.profileForm)
   }
 
   onUpdateProfile(updatedProfileForm) {
-    console.log(updatedProfileForm);
-    console.log(this.user);
-    this.user = merge(this.user, updatedProfileForm);
-    console.log(this.user)
+    // this.user = merge(this.user, updatedProfileForm);
+    this.updateProfile.emit(updatedProfileForm);
     this.resetForm();
     this.editMode = false;
   }
@@ -70,7 +72,7 @@ export class DashboardComponent implements OnInit {
       location: { value: this.user.location, disabled: true },
       phone: { value: this.user.phone, disabled: true },
       occupation: { value: this.user.occupation, disabled: true },
-    })
+    });
   }
 
   private buildForm() {

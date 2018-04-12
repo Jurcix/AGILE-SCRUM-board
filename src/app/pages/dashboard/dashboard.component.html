@@ -1,4 +1,37 @@
 <div class="row mx-0 justify-content-end scrugile-color-background">
+  <div>
+    <button (click)="createProjectForm.show()" type="button" class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main" mdbRippleRadius>Kurti naują</button>
+  </div>
+
+
+  <div mdbModal #createProjectForm="mdb-modal" [config]="{ backdrop: 'static' }" class="modal fade" id="create-project-form-modal" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
+          <h4 class="title">Projekto kūrimas </h4>
+        </div>
+
+        <div class="modal-body mb-0 mx-4 form-colors">
+          <div class="md-form form-sm">
+            <input mdbActive type="text" id="project-name" class="form-control">
+            <label for="project-name">Projekto pavadinimas</label>
+          </div>         
+
+          <div class="text-center pt-4">
+            <button class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
+            <button (click)="createProjectForm.hide()" class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>
+              Atšaukti </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------------------------------- Testimonial card ------------------------------------------ -->
+
   <div class="col-md-4">
     <div class="card testimonial-card">
       <div class="card-up scrugile-color-main"></div>
@@ -32,11 +65,50 @@
             </select>
           </div>
 
-          <button type="submit" [disabled]="profileForm.pristine || !profileForm.valid " class="btn btn-block mb-0 scrugile-color-secondary waves-light scrugile-text-color-main"
-          mdbRippleRadius>Išsaugoti</button>
+          <a class="text-underline" (click)="passwordForm.show()"> Keisti slaptažodį </a>
+
+          <button type="submit" class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
+            mdbRippleRadius>Išsaugoti</button>
 
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+
+<div mdbModal #passwordForm="mdb-modal" [config]="{ backdrop: 'static' }" class="modal fade" id="password-form-modal" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
+        <h4 class="title"> Slaptažodžio keitimas </h4>
+      </div>
+
+      <div class="modal-body mb-0 mx-4 form-colors">
+        <div class="md-form form-sm">
+          <input mdbActive type="password" id="old-password" class="form-control">
+          <label for="old-password">Senasis slaptažodis</label>
+        </div>
+
+        <div class="md-form form-sm">
+          <input mdbActive type="password" id="new-password" class="form-control">
+          <label for="new-password">Naujasis slaptažodis</label>
+        </div>
+
+        <div class="md-form form-sm">
+          <input mdbActive type="password" id="confirm-new-password" class="form-control">
+          <label for="confirm-new-password">Patvirtinkite naują slaptažodį</label>
+        </div>
+
+        <div class="text-center pt-4">
+          <button class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
+          <button (click)="passwordForm.hide()" class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>
+            Atšaukti </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
