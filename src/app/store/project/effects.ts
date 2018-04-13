@@ -1,4 +1,4 @@
-import { FilteredUsers } from './../../types/project';
+import { FilteredUsers, ProjectSummary } from './../../types/project';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from './../index';
 import { Store } from '@ngrx/store';
@@ -41,11 +41,23 @@ export class ProjectEffects {
     .pipe(
       map((action: ProjectActions.SearchUsersRequest) => action.payload),
       switchMap((payload) => {
-        console.log(payload)
         return this.http.post(`${environment.apiURL}v1/users/find-users`, payload)
           .pipe(
             map((data: FilteredUsers[]) => new ProjectActions.SearchUsersSuccess(data)),
             catchError(err => of(new ProjectActions.SearchUsersError(err))),
+          );
+      })
+    );
+
+  @Effect()
+  $ProjectsSummaryRequest: Observable<ProjectActions.ProjectActions> = this.actions$
+    .ofType(ProjectActions.PROJECT.SUMMARY.REQUEST)
+    .pipe(
+      switchMap(() => {
+        return this.http.get(`${environment.apiURL}v1/projects/project-list`)
+          .pipe(
+            map((data: ProjectSummary[]) => new ProjectActions.ProjectSummarySuccess(data)),
+            catchError(err => of(new ProjectActions.ProjectSummaryError(err))),
           );
       })
     );

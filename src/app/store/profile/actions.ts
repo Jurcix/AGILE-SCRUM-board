@@ -113,7 +113,7 @@ export class PasswordUpdateError implements Action {
 export class ProfileLoadRequest implements Action {
   type = PROFILE.LOAD.REQUEST;
 
-  constructor(public payload: any) { }
+  constructor() { }
 }
 
 export class ProfileLoadSuccess implements Action {

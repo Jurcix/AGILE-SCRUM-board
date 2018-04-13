@@ -12,3 +12,15 @@ export interface FilteredUsers {
   lastName: string;
   email: string;
 }
+
+export interface ProjectSummary {
+  id: string;
+  name: string;
+  stories: StoryStates[];
+  sprints: number;
+}
+
+export interface StoryStates {
+  _id: string;
+  state: string;
+}

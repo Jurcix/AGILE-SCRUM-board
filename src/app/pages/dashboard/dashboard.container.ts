@@ -1,7 +1,8 @@
-import { FilteredUsers } from './../../types/project';
-import { SearchUsersRequest } from './../../store/project/actions';
+import { getProjectsSummary } from './../../store/project/selectors';
+import { FilteredUsers, ProjectSummary } from './../../types/project';
+import { SearchUsersRequest, ProjectSummaryRequest } from './../../store/project/actions';
 import { Project } from './../../types';
-import { PasswordUpdateRequest } from './../../store/profile/actions';
+import { PasswordUpdateRequest, ProfileLoadRequest } from './../../store/profile/actions';
 import { ProfileState } from './../../store/profile/reducer';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from './../../store/index';
@@ -18,6 +19,7 @@ import { getFilteredUsers } from '../../store/project/selectors';
     <app-dashboard-component
       [user]="user$ | async"
       [filteredUsers]="filteredUsers$"
+      [projects]="projects$ | async"
       (updateProfile)="updateProfile($event)"
       (updatePassword)="updatePassword($event)"
       (createProject)="createProject($event)"
@@ -31,10 +33,14 @@ export class DashboardContainer implements OnInit {
 
   user$: Observable<ProfileState>;
   filteredUsers$: Observable<FilteredUsers[]>;
+  projects$: Observable<ProjectSummary[]>;
 
   ngOnInit() {
+    this.store.dispatch(new ProfileLoadRequest());
+    this.store.dispatch(new ProjectSummaryRequest());
     this.user$ = this.store.select(getProfileState);
     this.filteredUsers$ = this.store.select(getFilteredUsers);
+    this.projects$ = this.store.select(getProjectsSummary);
   }
 
   updateProfile(updatedUser: UserProfile) {
