@@ -1,4 +1,3 @@
-import { UserProfile } from './profile';
 export interface UserLogin {
   email: string;
   password: string;
@@ -26,6 +25,12 @@ export interface UserProfile {
   location?: string;
   phone: string;
   occupation?: string;
+}
+
+export interface UpdatePassword {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 }
 
 export interface AuthenticationToken {

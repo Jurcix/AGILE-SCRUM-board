@@ -1,4 +1,10 @@
-import { UserLogin, UserProfile, UserWithToken, UserSignUP } from './../../types/profile';
+import {
+  UserLogin,
+  UserProfile,
+  UserWithToken,
+  UserSignUP,
+  UpdatePassword
+} from './../../types/profile';
 import { Action } from '@ngrx/store';
 
 export const LOGIN = {
@@ -24,6 +30,11 @@ export const PROFILE = {
     REQUEST: '[Profile update] requested',
     SUCCESS: '[Profile update] successful',
     ERROR: '[Profile update] failed'
+  },
+  UPDATE_PASSWORD: {
+    REQUEST: '[Password update] requested',
+    SUCCESS: '[Password update] successful',
+    ERROR: '[Password update] failed'
   }
 };
 
@@ -81,6 +92,24 @@ export class ProfileUpdateError implements Action {
   constructor(public payload: Error) { }
 }
 
+export class PasswordUpdateRequest implements Action {
+  type = PROFILE.UPDATE_PASSWORD.REQUEST;
+
+  constructor(public payload: UpdatePassword) { }
+}
+
+export class PasswordUpdateSuccess implements Action {
+  type = PROFILE.UPDATE_PASSWORD.SUCCESS;
+
+  constructor() { }
+}
+
+export class PasswordUpdateError implements Action {
+  type = PROFILE.UPDATE_PASSWORD.ERROR;
+
+  constructor(public payload: Error) { }
+}
+
 export class ProfileLoadRequest implements Action {
   type = PROFILE.LOAD.REQUEST;
 
@@ -103,6 +132,7 @@ export type ProfileActions =
   LoginRequest | LoginStoreToken | LoginSuccess | LoginError |
   SignupRequest |  SignupError |
   ProfileUpdateRequest | ProfileUpdateSuccess | ProfileUpdateError |
+  PasswordUpdateRequest | PasswordUpdateSuccess | PasswordUpdateError |
   ProfileLoadRequest | ProfileLoadSuccess | ProfileLoadError;
 
 

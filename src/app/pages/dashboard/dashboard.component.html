@@ -1,30 +1,112 @@
 <div class="row mx-0 justify-content-end scrugile-color-background">
   <div>
-    <button (click)="createProjectForm.show()" type="button" class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main" mdbRippleRadius>Kurti naują</button>
+    <button (click)="createProjectForm.show()"
+      type="button"
+      class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
+      mdbRippleRadius>
+    Kurti naują
+  </button>
   </div>
 
-
-  <div mdbModal #createProjectForm="mdb-modal" [config]="{ backdrop: 'static' }" class="modal fade" id="create-project-form-modal" tabindex="-1"
-    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- ---------------------------------------- Project Creation Modal ---------------------------------------- -->
+  <div mdbModal
+    #createProjectForm="mdb-modal"
+    [config]="{ backdrop: 'static' }"
+    class="modal fade"
+    id="create-project-form-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog cascading-modal" role="document">
       <div class="modal-content">
-
         <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
           <h4 class="title">Projekto kūrimas </h4>
         </div>
 
+        <form [formGroup]="projectForm"
+          (ngSubmit)="onCreateProject(projectForm.value); createProjectForm.hide(); resetProjectForm();">
         <div class="modal-body mb-0 mx-4 form-colors">
+
           <div class="md-form form-sm">
-            <input mdbActive type="text" id="project-name" class="form-control">
-            <label for="project-name">Projekto pavadinimas</label>
-          </div>         
+            <input mdbActive type="text"
+              id="project-code"
+              formControlName="code"
+              class="form-control">
+            <label for="project-code">Kodas</label>
+          </div>
+          <div class="md-form form-sm">
+            <input mdbActive
+              type="text"
+              id="project-name"
+              formControlName="name"
+              class="form-control">
+            <label for="project-name">Pavadinimas</label>
+          </div>
+          <mat-form-field id="project-start-date-datepicker"
+            class="form-control m-0 p-0">
+            <input matInput
+              id="project-start-date"
+              formControlName="startDate"
+              [matDatepicker]="picker"
+              placeholder="Pradžios data">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field id="project-users-autocomplete" class="form-control m-0 p-0">
+            <input matInput
+              id="project-users"
+              placeholder="Komandos nariai"
+              aria-label="State"
+              [matAutocomplete]="auto"
+              [formControl]="userSearchInput"
+              (input)="onSearchUsers(userSearchInput.value)"
+              >
+              <mat-icon matSuffix
+                (click)="addUser(userSearchInput.value)"
+                class="fa fa-plus-circle fa-2x scrugile-text-color-success"></mat-icon>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let user of filteredUsers | async" [value]="user.email">
+                  <span>{{ user.email }}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <div *ngIf="projectForm.controls['users'].value.length"
+              class="md-form form-sm scrollable">
+              <mat-chip-list #chipList class="mat-chip-list-stacked d-flex justify-content-center">
+                <mat-chip *ngFor="let user of usersEmails | async">
+                  <span class="max-text-width">{{user}}</span>
+                  <mat-icon matChipRemove (click)="removeUser(user)" class="fa fa-times"></mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+
+          <div class="md-form form-sm form-colors">
+            <textarea mdbActive
+              type="text"
+              id="project-description"
+              formControlName="description"
+              class="form-control md-textarea">
+            </textarea>
+            <label for="project-description">Aprašymas</label>
+          </div>
 
           <div class="text-center pt-4">
-            <button class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
-            <button (click)="createProjectForm.hide()" class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>
-              Atšaukti </button>
+            <button type="submit"
+              class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light"
+              [disabled]="!projectForm.valid"
+              mdbRippleRadius>
+              Patvirtinti
+            </button>
+            <button type="button"
+              (click)="createProjectForm.hide(); resetProjectForm()"
+              class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light"
+              mdbRippleRadius>
+              Atšaukti
+            </button>
           </div>
         </div>
+      </form>
 
       </div>
     </div>
@@ -38,37 +120,88 @@
       <div class="avatar white">
         <img src="https://orig00.deviantart.net/066e/f/2012/058/6/d/my_little_pony___rainbow_dash_b2_by_dj_fahr-d4r504l.png" class="rounded-circle">
       </div>
-      <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile(profileForm.value)" (dblclick)="toggleMode()">
+      <form [formGroup]="profileForm"
+        (ngSubmit)="onUpdateProfile(profileForm.value)"
+        (dblclick)="toggleMode()">
         <div class="card-body">
           <h4 *ngIf="!editMode" class="card-title">{{user.name}} {{user.lastName}}</h4>
           <div *ngIf="editMode" class="name-display form-colors">
-            <input id="user-name" mdbActive type="text" formControlName="name" class="form-control name-text-align pr-1 my-0" placeholder="Vardas">
-            <input id="user-lastname" mdbActive type="text" formControlName="lastName" class="form-control my-0" placeholder="Pavardė">
+            <input id="user-name"
+              mdbActive
+              type="text"
+              formControlName="name"
+              class="form-control name-text-align pr-1 my-0"
+              placeholder="Vardas">
+            <input id="user-lastname"
+              mdbActive
+              type="text"
+              formControlName="lastName"
+              class="form-control my-0"
+              placeholder="Pavardė">
           </div>
           <hr>
 
           <div class="md-form form-sm form-colors">
-            <input id="user-email" mdbActive type="email" formControlName="email" class="form-control center-text" placeholder="El. paštas">
-            <input id="user-birth-year" mdbActive type="text" formControlName="birthYear" class="form-control center-text" placeholder="Gimimo metai">
-            <input id="user-gender" mdbActive type="text" formControlName="gender" class="form-control center-text">
-            <input *ngIf="!editMode" id="user-location" mdbActive type="text" formControlName="location" class="form-control center-text"
+            <input id="user-email"
+              mdbActive
+              type="email"
+              formControlName="email"
+              class="form-control center-text"
+              placeholder="El. paštas">
+            <input id="user-birth-year"
+              mdbActive
+              type="text"
+              formControlName="birthYear"
+              class="form-control center-text"
+              placeholder="Gimimo metai">
+            <input id="user-gender"
+              mdbActive
+              type="text"
+              formControlName="gender"
+              class="form-control center-text">
+            <input *ngIf="!editMode"
+              id="user-location"
+              mdbActive
+              type="text"
+              formControlName="location"
+              class="form-control center-text"
               placeholder="Gyvenamoji vieta">
-            <select *ngIf="editMode" id="user-location-select" formControlName="location" class="form-control center-text-select">
+            <select *ngIf="editMode"
+              id="user-location-select"
+              formControlName="location"
+              class="form-control center-text-select">
               <option value="profileForm.location" selected>{{ profileForm.location }}</option>
               <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
             </select>
-            <input id="user-phone" mdbActive type="text" formControlName="phone" class="form-control center-text" placeholde="Telefono nr.">
-            <input *ngIf="!editMode" id="user-occupation" mdbActive type="text" formControlName="occupation" class="form-control center-text">
-            <select *ngIf="editMode" id="user-occupation-select" formControlName="occupation" class="form-control center-text-select">
+            <input id="user-phone"
+              mdbActive
+              type="text"
+              formControlName="phone"
+              class="form-control center-text"
+              placeholde="Telefono nr.">
+            <input *ngIf="!editMode"
+              id="user-occupation"
+              mdbActive
+              type="text"
+              formControlName="occupation"
+              class="form-control center-text">
+            <select *ngIf="editMode"
+              id="user-occupation-select"
+              formControlName="occupation"
+              class="form-control center-text-select">
               <option value="profileForm.occupation" selected>{{ profileForm.occupation }}</option>
               <option *ngFor="let occupation of occupations" [value]="occupation">{{ occupation }}</option>
             </select>
           </div>
 
-          <a class="text-underline" (click)="passwordForm.show()"> Keisti slaptažodį </a>
+          <a *ngIf="!editMode" class="text-underline" (click)="passwordFormModal.show()"> Keisti slaptažodį </a>
 
-          <button type="submit" class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
-            mdbRippleRadius>Išsaugoti</button>
+          <button type="submit"
+            [disabled]="profileForm.pristine || !profileForm.valid"
+            class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
+            mdbRippleRadius>
+            Išsaugoti
+          </button>
 
         </div>
       </form>
@@ -76,9 +209,17 @@
   </div>
 </div>
 
+<!-- ------------------------------------------- Password Change Modal ------------------------------------- -->
 
-<div mdbModal #passwordForm="mdb-modal" [config]="{ backdrop: 'static' }" class="modal fade" id="password-form-modal" tabindex="-1"
-  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal
+  #passwordFormModal="mdb-modal"
+  [config]="{ backdrop: 'static' }"
+  class="modal fade"
+  id="password-form-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
     <div class="modal-content">
 
@@ -86,28 +227,51 @@
         <h4 class="title"> Slaptažodžio keitimas </h4>
       </div>
 
-      <div class="modal-body mb-0 mx-4 form-colors">
-        <div class="md-form form-sm">
-          <input mdbActive type="password" id="old-password" class="form-control">
-          <label for="old-password">Senasis slaptažodis</label>
-        </div>
+      <form [formGroup]="passwordForm"
+        (ngSubmit)="onUpdatePassword(passwordForm.value); passwordFormModal.hide(); resetPasswordForm()">
+        <div class="modal-body mb-0 mx-4 form-colors">
+          <div class="md-form form-sm">
+            <input mdbActive
+              type="password"
+              id="old-password"
+              formControlName="oldPassword"
+              class="form-control">
+            <label for="old-password">Senasis slaptažodis</label>
+          </div>
 
-        <div class="md-form form-sm">
-          <input mdbActive type="password" id="new-password" class="form-control">
-          <label for="new-password">Naujasis slaptažodis</label>
-        </div>
+          <div class="md-form form-sm">
+            <input mdbActive
+              type="password"
+              id="new-password"
+              formControlName="newPassword"
+              class="form-control">
+            <label for="new-password">Naujasis slaptažodis</label>
+          </div>
 
-        <div class="md-form form-sm">
-          <input mdbActive type="password" id="confirm-new-password" class="form-control">
-          <label for="confirm-new-password">Patvirtinkite naują slaptažodį</label>
-        </div>
+          <div class="md-form form-sm">
+            <input mdbActive
+              type="password"
+              id="confirm-new-password"
+              formControlName="confirmPassword"
+              class="form-control">
+            <label for="confirm-new-password">Patvirtinkite naują slaptažodį</label>
+          </div>
 
-        <div class="text-center pt-4">
-          <button class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>Patvirtinti</button>
-          <button (click)="passwordForm.hide()" class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light" mdbRippleRadius>
-            Atšaukti </button>
+          <div class="text-center pt-4">
+            <button type="submit"
+              class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light"
+              mdbRippleRadius>
+              Patvirtinti
+            </button>
+            <button (click)="passwordFormModal.hide(); resetPasswordForm()"
+              class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light"
+              mdbRippleRadius>
+              Atšaukti
+            </button>
+          </div>
+
         </div>
-      </div>
+      </form>
 
     </div>
   </div>

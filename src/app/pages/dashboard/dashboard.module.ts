@@ -5,6 +5,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardContainer } from './dashboard.container';
+import {
+  MatAutocompleteModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatIconModule,
+  MatChipsModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,6 +23,13 @@ import { DashboardContainer } from './dashboard.container';
     CommonModule,
     ReactiveFormsModule,
     MDBBootstrapModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatChipsModule,
+
   ],
   exports: [
     DashboardComponent,
