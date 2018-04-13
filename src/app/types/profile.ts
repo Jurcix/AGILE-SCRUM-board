@@ -1,4 +1,3 @@
-import { UserProfile } from './profile';
 export interface UserLogin {
   email: string;
   password: string;

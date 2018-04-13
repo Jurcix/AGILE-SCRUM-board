@@ -13,10 +13,13 @@ export class AuthService {
   public currentToken: string;
 
   constructor(private http: HttpClient, private store: Store<AppState>) {
-    this.currentToken = sessionStorage.getItem('accessToken');
+    // this.currentToken = sessionStorage.getItem('accessToken');
   }
 
   getAuthToken() {
+    if (!this.currentToken) {
+      this.currentToken = sessionStorage.getItem('accessToken');
+    }
     return this.currentToken;
   }
 

@@ -1,4 +1,6 @@
-import { UpdatePassword } from './../../types/profile';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { FilteredUsers } from './../../types/project';
+import { UpdatePassword, Project } from './../../types/';
 import {
   Component,
   OnInit,
@@ -8,9 +10,10 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { merge, pathOr } from 'ramda';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { merge, pathOr, find, pipe, concat } from 'ramda';
 import { UserProfile } from '../../types';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -19,12 +22,18 @@ import { UserProfile } from '../../types';
 })
 export class DashboardComponent implements OnInit, OnChanges {
   @Input() user: UserProfile;
+  @Input() filteredUsers: Observable<FilteredUsers>;
 
   @Output() updateProfile = new EventEmitter<UserProfile>();
   @Output() updatePassword = new EventEmitter<UpdatePassword>();
+  @Output() createProject = new EventEmitter<Project>();
+  @Output() searchUsers = new EventEmitter<Object>();
 
   profileForm: FormGroup;
   passwordForm: FormGroup;
+  projectForm: FormGroup;
+  userSearchInput: FormControl;
+  usersEmails = new BehaviorSubject<string[]>(['']);
   countries: string[];
   occupations: string[];
   editMode = false;
@@ -38,9 +47,11 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.occupations = [
       'Dirbantis', 'Studentas', 'Bedarbis'
     ];
+    this.userSearchInput = new FormControl('');
 
     this.buildProfileForm();
     this.buildPasswordForm();
+    this.buildProjectForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -74,6 +85,31 @@ export class DashboardComponent implements OnInit, OnChanges {
 
   onUpdatePassword(updatePassword: UpdatePassword) {
     this.updatePassword.emit(updatePassword);
+  }
+
+  onCreateProject(project: Project) {
+    this.createProject.emit(project);
+  }
+
+  onSearchUsers(searchString: string) {
+    this.searchUsers.emit({email: searchString});
+  }
+
+  addUser(userEmail: string) {
+    const newUsers = concat(this.projectForm.controls['users'].value, [userEmail]);
+    this.projectForm.patchValue({
+      users: newUsers
+    });
+    this.usersEmails.next(this.projectForm.controls['users'].value);
+  }
+
+  removeUser(userEmail: string) {
+    const newUsers = this.projectForm.controls['users'].value
+      .filter(email => email !== userEmail);
+      this.projectForm.patchValue({
+        users: newUsers
+      });
+      this.usersEmails.next(this.projectForm.controls['users'].value);
   }
 
   private resetProfileForm() {
@@ -118,4 +154,25 @@ export class DashboardComponent implements OnInit, OnChanges {
     });
   }
 
+  private buildProjectForm() {
+    this.projectForm = this.fb.group({
+      code: ['', Validators.required],
+      name: ['', Validators.required],
+      startDate: '',
+      users: [[]],
+      description: [''],
+    });
+  }
+
+  private resetProjectForm() {
+    this.userSearchInput.setValue('');
+    this.usersEmails.next(null);
+    this.projectForm.reset({
+      code: '',
+      name: '',
+      startDate: '',
+      users: [],
+      description: '',
+    });
+  }
 }

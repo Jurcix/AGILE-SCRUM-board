@@ -21,12 +21,12 @@ select:focus {
     outline: none
 }
 
-.form-colors input:focus {
+.form-colors input:focus:not(#project-users):not(#project-start-date) {
     border-bottom: 1px solid #66cdaa;
     box-shadow: 0 1px 0 0 #66cdaa;
 }
 
-input:focus:not([readonly])+label {
+input:focus:not([readonly]):not(#project-users):not(#project-start-date)+label {
     color: #66cdaa !important;
 }
 
@@ -40,4 +40,46 @@ en .name-display {
 
 .text-underline {
     text-decoration: underline !important;
+}
+
+#project-users-autocomplete {
+    border: none;
+}
+
+#project-start-date-datepicker {
+    border: none;
+}
+
+mat-chip{
+    max-width: 250px;
+    text-align: center;
+}
+
+.max-text-width {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 200px;
+    display: inline-block;
+}
+.scrollable {
+    overflow-y: auto;
+    max-height: 100px;
+}
+
+textarea {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.form-colors textarea:focus {
+    border-bottom: 1px solid #66cdaa;
+    box-shadow: 0 1px 0 0 #66cdaa;
+}
+
+textarea:focus:not([readonly])+label {
+    color: #66cdaa !important;
+}
+
+::ng-deep .cdk-overlay-container{
+    z-index: 10001 !important;
 }

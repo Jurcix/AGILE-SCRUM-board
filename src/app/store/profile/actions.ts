@@ -1,4 +1,10 @@
-import { UserLogin, UserProfile, UserWithToken, UserSignUP, UpdatePassword } from './../../types/profile';
+import {
+  UserLogin,
+  UserProfile,
+  UserWithToken,
+  UserSignUP,
+  UpdatePassword
+} from './../../types/profile';
 import { Action } from '@ngrx/store';
 
 export const LOGIN = {
