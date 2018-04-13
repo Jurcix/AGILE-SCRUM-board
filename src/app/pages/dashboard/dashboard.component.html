@@ -1,7 +1,6 @@
 <div class="row mx-0 justify-content-center scrugile-color-background">
 
-  <div class="col-md-6">
-    <div class="card mt-5 main-card">
+    <div class="card col-md-5 mr-5 mt-5 main-card">
       <div class="card-body">
         <div class="d-flex justify-content-end">
           <div class="mr-auto card-title scrugile-text-title-small"> Projektai: </div>
@@ -12,10 +11,11 @@
           Kurti naują
           </button>
         </div>
+        <hr>
 
         <div *ngIf="projects.length">
           <div *ngFor="let project of projects">
-            <div class="card mr-0 projects-card scrugile-color-background">
+            <div class="card mr-0 mt-4 projects-card scrugile-color-background">
               <div class="card-body">
                 <div class="card-title scrugile-text-heading">
                   <i class="fa fa-rocket"></i>
@@ -42,7 +42,6 @@
         </div>
 
       </div>
-    </div>
   </div>
 
 <!-- ---------------------------------------- Project Creation Modal ---------------------------------------- -->
