@@ -11,19 +11,20 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material';
 
 import { appRoutes } from './app-routes/app-routes';
 import { CustomSerializer, RouterEffects } from './store/app-routes';
 import { ProfileEffects } from './store/profile';
+import { ProjectEffects } from './store/project';
 
 import { AppComponent } from './app.component';
 import { HeaderModule } from './UI/header/header.module';
 import { LandingModule } from './pages/landing/landing.module';
 import { SignUpModule } from './pages/sign-up/sign-up.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
-import { ProjectEffects } from './store/project';
-import { MatNativeDateModule } from '@angular/material';
 import { SprintsModule } from './pages/sprints/sprints.module';
+import { ProjectSummaryModule } from './pages/project-summary/project-summary.module';
 
 
 
@@ -52,7 +53,8 @@ import { SprintsModule } from './pages/sprints/sprints.module';
     LandingModule,
     SignUpModule,
     DashboardModule,
-    SprintsModule
+    SprintsModule,
+    ProjectSummaryModule
   ],
   providers: [
     {

@@ -15,7 +15,7 @@
 
         <div *ngIf="projects.length">
           <div *ngFor="let project of projects">
-            <div class="card mr-0 mt-4 projects-card scrugile-color-background">
+            <div class="card mr-0 mt-4 projects-card scrugile-color-background" (click)="onGoToProject(project.id)">
               <div class="card-body">
                 <div class="card-title scrugile-text-heading">
                   <i class="fa fa-rocket"></i>
@@ -35,7 +35,7 @@
           <div class="card-body">
             <div class="card-text">
               Jūsų darbalaukyje nėra projektų! :(
-              Norėdami padėti darbus sukurkite naują projektą
+              Norėdami pradėti darbus sukurkite naują projektą
               arba paprašykite kolegų, kad jus priskirtų!
             </div>
           </div>
