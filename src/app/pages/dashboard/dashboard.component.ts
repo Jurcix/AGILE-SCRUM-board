@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   @Output() updatePassword = new EventEmitter<UpdatePassword>();
   @Output() createProject = new EventEmitter<Project>();
   @Output() searchUsers = new EventEmitter<Object>();
+  @Output() goToProject = new EventEmitter<string>();
 
   profileForm: FormGroup;
   passwordForm: FormGroup;
@@ -94,6 +95,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 
   onSearchUsers(searchString: string) {
     this.searchUsers.emit({email: searchString});
+  }
+
+  onGoToProject(id: string) {
+    this.goToProject.emit(id);
   }
 
   addUser(userEmail: string) {
