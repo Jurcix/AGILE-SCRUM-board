@@ -23,6 +23,7 @@ import { SignUpModule } from './pages/sign-up/sign-up.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { ProjectEffects } from './store/project';
 import { MatNativeDateModule } from '@angular/material';
+import { SprintsModule } from './pages/sprints/sprints.module';
 
 
 
@@ -51,6 +52,7 @@ import { MatNativeDateModule } from '@angular/material';
     LandingModule,
     SignUpModule,
     DashboardModule,
+    SprintsModule
   ],
   providers: [
     {
