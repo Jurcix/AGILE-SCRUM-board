@@ -43,7 +43,9 @@ import { ProjectSummaryModule } from './pages/project-summary/project-summary.mo
       ProjectEffects,
       RouterEffects,
     ]),
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'routerReducer'
+    }),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
     MatNativeDateModule,
