@@ -1,11 +1,47 @@
-<div class="row mx-0 justify-content-end scrugile-color-background">
-  <div>
-    <button (click)="createProjectForm.show()"
-      type="button"
-      class="btn btn-block mb-0 mt-4 scrugile-color-secondary waves-light scrugile-text-color-main"
-      mdbRippleRadius>
-    Kurti naują
-  </button>
+<div class="row mx-0 justify-content-center scrugile-color-background">
+
+    <div class="card col-md-5 mr-5 mt-5 main-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <div class="mr-auto card-title scrugile-text-title-small"> Projektai: </div>
+          <button (click)="createProjectForm.show()"
+          type="button"
+          class="btn btn-block col-md-4 mb-0 scrugile-color-secondary waves-light scrugile-text-color-main"
+          mdbRippleRadius>
+          Kurti naują
+          </button>
+        </div>
+        <hr>
+
+        <div *ngIf="projects.length">
+          <div *ngFor="let project of projects">
+            <div class="card mr-0 mt-4 projects-card scrugile-color-background">
+              <div class="card-body">
+                <div class="card-title scrugile-text-heading">
+                  <i class="fa fa-rocket"></i>
+                  {{ project.name }}
+                </div>
+                <div class="card-text row d-flex justify-content-center">
+                  <div class="mx-3">Pasakojimai: <span class="scrugile-text-bold">{{ project.stories.length }}</span></div>
+                  <div class="mx-3"> Vykdomi: <span class="scrugile-text-bold">{{ project.stories.length }}</span></div>
+                  <div class="mx-3">Sprintų kiekis: <span class="scrugile-text-bold">{{ project.stories.length }}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!projects.length">
+          <div class="card-body">
+            <div class="card-text">
+              Jūsų darbalaukyje nėra projektų! :(
+              Norėdami padėti darbus sukurkite naują projektą
+              arba paprašykite kolegų, kad jus priskirtų!
+            </div>
+          </div>
+        </div>
+
+      </div>
   </div>
 
 <!-- ---------------------------------------- Project Creation Modal ---------------------------------------- -->
@@ -115,7 +151,7 @@
   <!-- ---------------------------------------------- Testimonial card ------------------------------------------ -->
 
   <div class="col-md-4">
-    <div class="card testimonial-card">
+    <div class="card mt-5 testimonial-card">
       <div class="card-up scrugile-color-main"></div>
       <div class="avatar white">
         <img src="https://orig00.deviantart.net/066e/f/2012/058/6/d/my_little_pony___rainbow_dash_b2_by_dj_fahr-d4r504l.png" class="rounded-circle">

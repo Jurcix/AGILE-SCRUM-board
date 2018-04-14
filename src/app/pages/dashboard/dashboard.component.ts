@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { FilteredUsers } from './../../types/project';
+import { FilteredUsers, ProjectSummary } from './../../types/project';
 import { UpdatePassword, Project } from './../../types/';
 import {
   Component,
@@ -23,6 +23,7 @@ import { Observable } from 'rxjs/Observable';
 export class DashboardComponent implements OnInit, OnChanges {
   @Input() user: UserProfile;
   @Input() filteredUsers: Observable<FilteredUsers>;
+  @Input() projects: ProjectSummary[];
 
   @Output() updateProfile = new EventEmitter<UserProfile>();
   @Output() updatePassword = new EventEmitter<UpdatePassword>();

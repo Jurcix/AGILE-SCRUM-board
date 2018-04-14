@@ -1,4 +1,4 @@
-import { FilteredUsers } from './../../types/project';
+import { FilteredUsers, ProjectSummary } from './../../types/project';
 import { Action } from '@ngrx/store';
 import { Project } from '../../types';
 
@@ -7,7 +7,12 @@ export const PROJECT = {
     REQUEST: '[Project create] requested',
     SUCCESS: '[Project create] successful',
     ERROR: '[Project create] failed',
-  }
+  },
+  SUMMARY:  {
+    REQUEST: '[Project summary] requested',
+    SUCCESS: '[Project summary] successful',
+    ERROR: '[Project summary] failed',
+  },
 };
 
 export const SEARCH_USERS = {
@@ -34,6 +39,24 @@ export class ProjectCreateError implements Action {
   constructor(public payload: Error) { }
 }
 
+export class ProjectSummaryRequest implements Action {
+  type = PROJECT.SUMMARY.REQUEST;
+
+  constructor() { }
+}
+
+export class ProjectSummarySuccess implements Action {
+  type = PROJECT.SUMMARY.SUCCESS;
+
+  constructor(public payload: ProjectSummary[]) { }
+}
+
+export class ProjectSummaryError implements Action {
+  type = PROJECT.SUMMARY.ERROR;
+
+  constructor(public payload: Error) { }
+}
+
 export class SearchUsersRequest implements Action {
   type = SEARCH_USERS.REQUEST;
 
@@ -54,4 +77,5 @@ export class SearchUsersError implements Action {
 
 export type ProjectActions =
 ProjectCreateRequest | ProjectCreateSuccess | ProjectCreateError |
+ProjectSummaryRequest | ProjectSummarySuccess | ProjectSummaryError |
 SearchUsersRequest | SearchUsersSuccess | SearchUsersError;

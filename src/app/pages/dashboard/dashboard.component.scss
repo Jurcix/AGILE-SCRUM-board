@@ -80,6 +80,14 @@ textarea:focus:not([readonly])+label {
     color: #66cdaa !important;
 }
 
+.main-card {
+    border-top: 3px solid #374785;
+}
+
+.projects-card {
+    border-top: 3px solid #66cdaa;
+}
+
 ::ng-deep .cdk-overlay-container{
     z-index: 10001 !important;
 }

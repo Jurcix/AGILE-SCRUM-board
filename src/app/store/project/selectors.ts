@@ -8,3 +8,8 @@ export const getFilteredUsers = createSelector(
   state => state.filteredUsers
 );
 
+export const getProjectsSummary = createSelector(
+  getProjectState,
+  state => state.projectsSummary
+);
+
