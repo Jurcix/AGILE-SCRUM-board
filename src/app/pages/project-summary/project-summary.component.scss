@@ -17,7 +17,7 @@
   min-height: 250px;
 }
 
-.scrollable {
+.scrollable-user-box {
   overflow-y: auto;
   max-height: 150px;
 }
@@ -29,4 +29,29 @@
 .table-text-align-center {
   text-align: center;
   vertical-align: middle;
+}
+
+#users-autocomplete {
+  border: none;
+}
+
+mat-chip{
+  max-width: 250px;
+  text-align: center;
+}
+
+.max-text-width {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 200px;
+  display: inline-block;
+}
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 100px;
+}
+
+::ng-deep .cdk-overlay-container{
+  z-index: 10001 !important;
 }
