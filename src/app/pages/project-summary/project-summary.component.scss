@@ -1,0 +1,32 @@
+.background-image {
+  background-image: url("../../../assets/project-summary-subheader.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.scrugile-card {
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 5%;
+}
+
+.main-card {
+  border-top: 3px solid #374785;
+  min-height: 250px;
+}
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 150px;
+}
+
+.table-text-align-end {
+  text-align: end;
+}
+
+.table-text-align-center {
+  text-align: center;
+  vertical-align: middle;
+}

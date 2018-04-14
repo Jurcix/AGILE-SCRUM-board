@@ -1,3 +1,4 @@
+import { Go } from './../../store/app-routes/actions';
 import { getProjectsSummary } from './../../store/project/selectors';
 import { FilteredUsers, ProjectSummary } from './../../types/project';
 import { SearchUsersRequest, ProjectSummaryRequest } from './../../store/project/actions';
@@ -20,10 +21,12 @@ import { getFilteredUsers } from '../../store/project/selectors';
       [user]="user$ | async"
       [filteredUsers]="filteredUsers$"
       [projects]="projects$ | async"
+
       (updateProfile)="updateProfile($event)"
       (updatePassword)="updatePassword($event)"
       (createProject)="createProject($event)"
       (searchUsers)="searchUsers($event)"
+      (goToProject)="goToProject($event)"
     >
     </app-dashboard-component>
   `
@@ -57,5 +60,9 @@ export class DashboardContainer implements OnInit {
 
   searchUsers(searchString: Object) {
     this.store.dispatch(new SearchUsersRequest(searchString));
+  }
+
+  goToProject(id: string) {
+    this.store.dispatch(new Go({ path: [`project/${id}`] }));
   }
 }
