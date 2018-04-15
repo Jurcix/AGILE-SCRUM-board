@@ -1,3 +1,4 @@
+import { BacklogModule } from './pages/backlog/backlog.module';
 import { AuthService } from './authentication/auth.service';
 import { RequestInterceptorService } from './authentication/request-interceptor.service';
 import { reducers } from './store/index';
@@ -24,6 +25,7 @@ import { LandingModule } from './pages/landing/landing.module';
 import { SignUpModule } from './pages/sign-up/sign-up.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { ProjectSummaryModule } from './pages/project-summary/project-summary.module';
+import { StoryEffects } from './store/story';
 
 
 
@@ -41,6 +43,7 @@ import { ProjectSummaryModule } from './pages/project-summary/project-summary.mo
     EffectsModule.forRoot([
       ProfileEffects,
       ProjectEffects,
+      StoryEffects,
       RouterEffects,
     ]),
     StoreRouterConnectingModule.forRoot({
@@ -55,6 +58,7 @@ import { ProjectSummaryModule } from './pages/project-summary/project-summary.mo
     SignUpModule,
     DashboardModule,
     ProjectSummaryModule,
+    BacklogModule,
   ],
   providers: [
     {

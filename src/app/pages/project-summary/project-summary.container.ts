@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators/take';
 import { ProjectDetailsRequest, RemoveUserRequest, SearchUsersRequest } from '../../store/project';
 import { getProjectDetails, getFilteredUsers } from '../../store/project/selectors';
+import { Go } from '../../store/app-routes';
 
 @Component({
   selector: 'app-project-summary',
@@ -21,6 +22,7 @@ import { getProjectDetails, getFilteredUsers } from '../../store/project/selecto
       (removeUser)="removeUser($event)"
       (searchUsers)="searchUsers($event)"
       (addUsersToProject)="addUsersToProject($event)"
+      (goToBacklog)="goToBacklog($event)"
     >
     </app-project-summary-component>
   `,
@@ -32,6 +34,7 @@ export class ProjectSummaryContainer implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private router: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -50,6 +53,12 @@ export class ProjectSummaryContainer implements OnInit {
 
   addUsersToProject(users: UsersIds) {
     this.store.dispatch(new AddUsersRequest(users));
+  }
+
+  goToBacklog() {
+    let id;
+    this.router.params.subscribe(value => id = value.id);
+    this.store.dispatch(new Go({ path: [`project/${id}/backlog`] }));
   }
 
 }

@@ -1,0 +1,151 @@
+<div class="card scrugile-card">
+
+  <div class="background-image">
+    <div class="mt-5 mx-5 mb-4">
+      <i class="fa fa-archive fa-3x scrugile-text-color-secondary"></i>
+      <span class="scrugile-text-title-small scrugile-text-color-secondary">Projekto darbų sąrašas</span>
+      <div class="scrugile-text-color-secondary"> Cia yra projekto darbų aprašas </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col">
+        <a (click)="createStoryModal.show()" class="underline-text mx-3">
+          <i class="fa fa-plus scrugile-text-color-primary-light"></i> Pridėti
+        </a>
+        <a (click)="onDeleteStories()" class="underline-text mx-3">
+          <i class="fa fa-minus scrugile-text-color-primary-light"></i> Ištrinti
+        </a>
+        <a class="underline-text mx-3">
+          <i class="fa fa-arrow-right scrugile-text-color-primary-light"></i> Perkelti į kitą sprintą
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="scrugile-text-bold"> Kodas </th>
+              <th class="scrugile-text-bold"> Pavadinimas </th>
+              <th class="scrugile-text-bold"> Prioritetas </th>
+              <th class="scrugile-text-bold"> Pasakojimo taškai </th>
+              <th class="scrugile-text-bold"> Priskirtas asmuo </th>
+              <th class="scrugile-text-bold">  </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let story of stories">
+              <th>{{ story.code }}</th>
+              <th>{{ story.name }}</th>
+              <th>{{ story.priority }}</th>
+              <th>{{ story.storyPoints }}</th>
+              <th>{{ story.assignee }}</th>
+              <th>
+                <mat-checkbox [(ngModel)]="story.selected"></mat-checkbox>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+</div>
+
+
+<!-- ------------------------ add stories modal ------------------------ -->
+
+
+<div mdbModal
+  #createStoryModal="mdb-modal"
+  [config]="{ backdrop: 'static' }"
+  class="modal fade"
+  id="add-stories-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
+        <h4 class="title"> Pasakojimo kūrimas </h4>
+      </div>
+
+      <div class="modal-body mb-0 mx-4">
+        <form [formGroup]="storyForm"
+          (ngSubmit)="onCreateStory(storyForm.value); createStoryModal.hide(); resetStoryForm()">
+          <div class="row">
+            <div class="col-4">
+              <div class="md-form form-sm form-colors">
+                <input mdbActive
+                  type="text"
+                  id="story-name"
+                  formControlName="name"
+                  class="form-control">
+                <label for="story-name">Pasakojimo pavadinimas</label>
+              </div>
+
+              <select id="story-points" formControlName="storyPoints" class="form-control">
+                <option value="" class="disabled-option" disabled selected>Pasakojimo taškai</option>
+                <option *ngFor="let point of storyPointOptions" [value]="point.value">{{ point.name }}</option>
+              </select>
+
+              <select id="story-priority" formControlName="priority" class="form-control">
+                <option value="" class="disabled-option" disabled selected>Prioritetas</option>
+                <option *ngFor="let priorityOption of priorityOptions" [value]="priorityOption.value">{{ priorityOption.name }}</option>
+              </select>
+
+              <mat-form-field id="user-autocomplete" class="mt-0 pt-0 form-control">
+                <input matInput
+                  id="story-assignee"
+                  placeholder="Priskirtas asmuo"
+                  aria-label="State"
+                  [matAutocomplete]="auto"
+                  formControlName="assignee"
+                  (input)="onSearchUsers(storyForm.controls['assignee'].value)"
+                  >
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user.id">
+                    <span>{{ user.email }}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+            </div>
+
+          <div class="col">
+            <div class="md-form form-sm form-colors">
+              <textarea mdbActive
+                type="text"
+                id="story-description"
+                formControlName="description"
+                class="form-control md-textarea">
+              </textarea>
+              <label for="project-description">Aprašymas</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center py-3">
+          <button type="submit"
+            class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light"
+            mdbRippleRadius>
+            Patvirtinti
+          </button>
+          <button (click)="createStoryModal.hide(); resetStoryForm()"
+            type="button"
+            class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light"
+            mdbRippleRadius>
+            Atšaukti
+          </button>
+        </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
