@@ -5,6 +5,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { SprintsComponent } from './sprints.component';
 import { SprintsContainer } from './sprints.container';
 import { ChartComponent } from './chart-component/chart.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ChartComponent } from './chart-component/chart.component';
     ChartComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     MDBBootstrapModule,
   ],

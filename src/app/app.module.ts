@@ -17,6 +17,7 @@ import { appRoutes } from './app-routes/app-routes';
 import { CustomSerializer, RouterEffects } from './store/app-routes';
 import { ProfileEffects } from './store/profile';
 import { ProjectEffects } from './store/project';
+import { SprintEffects } from './store/sprints';
 
 import { AppComponent } from './app.component';
 import { HeaderModule } from './UI/header/header.module';
@@ -43,6 +44,7 @@ import { ProjectSummaryModule } from './pages/project-summary/project-summary.mo
       ProfileEffects,
       ProjectEffects,
       RouterEffects,
+      SprintEffects,
     ]),
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument(),

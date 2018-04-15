@@ -19,7 +19,7 @@ export const reducer: ActionReducerMap<State> = {
 
 export const getRouterState = createFeatureSelector<
   fromRouter.RouterReducerState<RouterStateUrl>
-  >('routerReducer');
+  >('router');
 
 export class CustomSerializer
   implements fromRouter.RouterStateSerializer<RouterStateUrl> {
