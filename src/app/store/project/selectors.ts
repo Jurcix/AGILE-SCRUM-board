@@ -13,3 +13,8 @@ export const getProjectsSummary = createSelector(
   state => state.projectsSummary
 );
 
+export const getProjectDetails = createSelector(
+  getProjectState,
+  state => state.projectDetails
+);
+

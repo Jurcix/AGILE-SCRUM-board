@@ -18,13 +18,13 @@
           <div class="row">
             <div class="col">
               <div class="scrugile-text-title-small mt-0">
-                Projektas 1
+                {{ project.name }}
               </div>
               <div class="scrugile-text-bold">
-                Sukurta: 01-01-0001
+                Sukurta: {{ createdDate | date:'yyyy-MM-dd' }}
               </div>
               <div class="scrugile-text-bold">
-                Produkto savininkas: Jonas Jonaitis
+                Produkto savininkas: {{ project.creator.name }} {{ project.creator.lastName }}
               </div>
             </div>
 
@@ -35,7 +35,7 @@
           </div>
           <hr>
           <div class="mt-4">
-            Cia yra t ikrasis projekto aprasymas
+            {{ project.description }}
           </div>
         </div>
       </div>
@@ -54,49 +54,20 @@
                 </div>
 
                 <div class="col-sm-4 mt-1">
-                  <button type="button" class="btn btn-block btn-sm px-0 scrugile-text-color-main scrugile-color-secondary">Pridėti</button>
+                  <button type="button" (click)="addUserModal.show()" class="btn btn-block btn-sm px-0 scrugile-text-color-main scrugile-color-secondary">Pridėti</button>
                 </div>
               </div>
-              <div class="mt-4 scrollable">
+              <div class="mt-4 scrollable-user-box">
                 <table class="table table-striped">
                   <tbody>
-                    <tr>
-                      <td class="p-1 table-text-align-center">Jonas jonaitis</td>
+                    <tr *ngFor="let user of project.users">
+                      <td class="p-1 table-text-align-center">
+                        {{ user.name }} {{ user.lastName }}
+                      </td>
                       <td class="p-1 table-text-align-center scrugile-text-color-attention">
-                        <a class="fa fa-minus-circle fa-2x"></a>
+                        <a class="fa fa-minus-circle fa-2x" (click)="onRemoveUser(user._id)"></a>
                       </td>
                     </tr>
-                    <tr>
-                      <td class="p-1 table-text-align-center">Jonas jonaitis</td>
-                      <td class="p-1 table-text-align-center scrugile-text-color-attention">
-                        <a class="fa fa-minus-circle fa-2x"></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-1 table-text-align-center">Jonas jonaitis</td>
-                      <td class="p-1 table-text-align-center scrugile-text-color-attention">
-                        <a class="fa fa-minus-circle fa-2x"></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-1 table-text-align-center">Jonas jonaitis</td>
-                      <td class="p-1 table-text-align-center scrugile-text-color-attention">
-                        <a class="fa fa-minus-circle fa-2x"></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-1 table-text-align-center">Jonas jonaitis</td>
-                      <td class="p-1 table-text-align-center scrugile-text-color-attention">
-                        <a class="fa fa-minus-circle fa-2x"></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-1 table-text-align-center">Jonas jonaitis</td>
-                      <td class="p-1 table-text-align-center scrugile-text-color-attention">
-                        <a class="fa fa-minus-circle fa-2x"></a>
-                      </td>
-                    </tr>
-
                   </tbody>
                 </table>
               </div>
@@ -106,6 +77,78 @@
       </div>
 
     </div>
+  </div>
+
+</div>
+
+
+<!-- ----------------------- Add User Modal ---------------------- -->
+
+<div mdbModal
+  #addUserModal="mdb-modal"
+  [config]="{ backdrop: 'static' }"
+  class="modal fade"
+  id="add-user-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
+        <h4 class="title">Pridėti komandos narį</h4>
+      </div>
+
+      <div class="modal-body form-colors">
+
+        <mat-form-field id="users-autocomplete" class="form-control">
+          <input matInput
+            id="users"
+            placeholder="Komandos nariai"
+            aria-label="State"
+            [matAutocomplete]="auto"
+            [formControl]="userSearchInput"
+            (input)="onSearchUsers(userSearchInput.value)"
+            >
+          <mat-icon matSuffix
+            (click)="addUser(userSearchInput.value)"
+            class="fa fa-plus-circle fa-2x scrugile-text-color-success"></mat-icon>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of filteredUsers | async" [value]="user.email">
+              <span>{{ user.email }}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div class="md-form form-sm scrollable">
+          <mat-chip-list #chipList class="mat-chip-list-stacked d-flex justify-content-center">
+            <mat-chip *ngFor="let user of usersEmails | async">
+              <span class="max-text-width">{{user}}</span>
+              <mat-icon matChipRemove (click)="revertAddUser(user)" class="fa fa-times"></mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div class="text-center pt-4">
+          <button type="button"
+            (click)="addUserModal.hide(); onAddUsersToProject(); clearAddUserModal()"
+            class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light"
+            mdbRippleRadius>
+            Patvirtinti
+          </button>
+          <button type="button"
+            (click)="addUserModal.hide(); clearAddUserModal()"
+            class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light"
+            mdbRippleRadius>
+            Atšaukti
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>

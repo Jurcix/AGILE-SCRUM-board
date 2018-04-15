@@ -20,7 +20,30 @@ export interface ProjectSummary {
   sprints: number;
 }
 
+export interface ProjectDetails {
+  id: string;
+  name: string;
+  description: string;
+  users: ProjectUser[];
+  creator: ProjectUser;
+  createdAt: string;
+}
+
+export interface ProjectUser {
+  _id: string;
+  name: string;
+  lastName: string;
+}
+
 export interface StoryStates {
   _id: string;
   state: string;
+}
+
+export interface UserID {
+  user: string;
+}
+
+export interface UsersIds {
+  users: string[];
 }
