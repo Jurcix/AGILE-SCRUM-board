@@ -1,3 +1,4 @@
+import { BacklogModule } from './pages/backlog/backlog.module';
 import { AuthService } from './authentication/auth.service';
 import { RequestInterceptorService } from './authentication/request-interceptor.service';
 import { reducers } from './store/index';
@@ -26,6 +27,7 @@ import { SignUpModule } from './pages/sign-up/sign-up.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { SprintsModule } from './pages/sprints/sprints.module';
 import { ProjectSummaryModule } from './pages/project-summary/project-summary.module';
+import { StoryEffects } from './store/story';
 
 
 
@@ -43,6 +45,7 @@ import { ProjectSummaryModule } from './pages/project-summary/project-summary.mo
     EffectsModule.forRoot([
       ProfileEffects,
       ProjectEffects,
+      StoryEffects,
       RouterEffects,
       SprintEffects,
     ]),
@@ -57,8 +60,9 @@ import { ProjectSummaryModule } from './pages/project-summary/project-summary.mo
     LandingModule,
     SignUpModule,
     DashboardModule,
+    ProjectSummaryModule,
+    BacklogModule,
     SprintsModule,
-    ProjectSummaryModule
   ],
   providers: [
     {

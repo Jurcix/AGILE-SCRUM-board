@@ -22,6 +22,7 @@ import { Go } from '../../store/app-routes';
       (removeUser)="removeUser($event)"
       (searchUsers)="searchUsers($event)"
       (addUsersToProject)="addUsersToProject($event)"
+      (goToBacklog)="goToBacklog($event)"
       (navigateToSprints)="navigateToSprints($event)"
     >
     </app-project-summary-component>
@@ -34,6 +35,7 @@ export class ProjectSummaryContainer implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private router: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,12 @@ export class ProjectSummaryContainer implements OnInit {
 
   addUsersToProject(users: UsersIds) {
     this.store.dispatch(new AddUsersRequest(users));
+  }
+
+  goToBacklog() {
+    let id;
+    this.router.params.subscribe(value => id = value.id);
+    this.store.dispatch(new Go({ path: [`project/${id}/backlog`] }));
   }
 
   navigateToSprints(id: string) {

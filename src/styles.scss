@@ -63,6 +63,12 @@ h4 {
         &-main {
             color: #093145 !important;
         }
+        &-primary {
+            color: #374785;
+            &-light {
+                color: #4b61b5;
+            }
+        }
         &-secondary {
             color: #F8F8FF;
         }

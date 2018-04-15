@@ -1,0 +1,86 @@
+.background-image {
+  background-image: url("../../../assets/backlog-subheader.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.scrugile-card {
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 5%;
+}
+
+.underline-text {
+  text-decoration: underline !important;
+  color: #4b61b5 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color:#c8e4ff;
+}
+
+.disabled-option {
+  color: #757575;
+}
+
+select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+select:focus {
+  border-bottom: 2px solid #66cdaa;
+  outline: none
+}
+
+.form-colors input:focus:not(#story-assignee) {
+  border-bottom: 1px solid #66cdaa;
+  box-shadow: 0 1px 0 0 #66cdaa;
+}
+
+input:focus:not([readonly]):not(#story-assignee)+label {
+  color: #66cdaa !important;
+}
+
+.md-form.form-sm.form-colors input {
+  font-size: 16px;
+}
+
+#user-autocomplete {
+  border:none;
+}
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 100px;
+}
+
+textarea {
+  overflow-y: auto;
+  height: 400px;
+}
+
+.form-colors textarea:focus {
+  border-bottom: 1px solid #66cdaa;
+  box-shadow: 0 1px 0 0 #66cdaa;
+}
+
+textarea:focus:not([readonly])+label {
+  color: #66cdaa !important;
+}
+
+::ng-deep .cdk-overlay-container{
+  z-index: 10001 !important;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 70%;
+  }
+}

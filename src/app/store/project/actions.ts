@@ -1,4 +1,9 @@
-import { FilteredUsers, ProjectSummary, ProjectDetails, UserID, UsersIds } from './../../types/project';
+import { FilteredUsers,
+  ProjectSummary,
+  ProjectDetails,
+  UserID,
+  UsersIds
+} from './../../types/project';
 import { Action } from '@ngrx/store';
 import { Project } from '../../types';
 
