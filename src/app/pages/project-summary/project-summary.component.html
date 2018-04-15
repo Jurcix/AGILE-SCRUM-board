@@ -30,7 +30,10 @@
 
             <div class="col-sm-3 mt-2">
               <button type="button" class="btn btn-block btn-sm px-0 scrugile-text-color-main scrugile-color-secondary">Darbų sarašas</button>
-              <button type="button" class="btn btn-block btn-sm px-0 scrugile-text-color-main scrugile-color-secondary">Sprintai</button>
+              <button type="button" class="btn btn-block btn-sm px-0 scrugile-text-color-main scrugile-color-secondary"
+                (click)="onNavigateToSprints(project.id)">
+                Sprintai
+              </button>
             </div>
           </div>
           <hr>

@@ -20,6 +20,7 @@ export class ChartComponent implements AfterViewInit {
   };
   @Input() sprintIndex;
   public chart;
+  public dataExists = false;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -55,11 +56,7 @@ export class ChartComponent implements AfterViewInit {
           },
         }
       });
+      this.dataExists = !!this.data.length;
       this.cdr.detectChanges();
-  }
-
-  dataExists(data) {
-    console.log(!!data.length);
-    return !!data.length;
   }
 }
