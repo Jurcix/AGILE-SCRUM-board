@@ -4,6 +4,7 @@ import * as fromProfile from './profile/reducer';
 import * as fromRouterState from './app-routes/reducer';
 import * as fromProject from './project/reducer';
 import * as fromStory from './story/reducer';
+import * as fromSprint from './sprints/reducer';
 import { RouterReducerState } from '@ngrx/router-store';
 
 import * as fromRouter from '@ngrx/router-store';
@@ -13,6 +14,7 @@ export interface AppState {
   profileState: fromProfile.ProfileState;
   projectState: fromProject.ProjectState;
   storyState: fromStory.StoryState;
+  sprintState: fromSprint.SprintsState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -20,4 +22,5 @@ export const reducers: ActionReducerMap<AppState> = {
   profileState: fromProfile.reducer,
   projectState: fromProject.reducer,
   storyState: fromStory.reducer,
+  sprintState: fromSprint.reducer,
 };

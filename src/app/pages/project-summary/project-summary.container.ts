@@ -23,6 +23,7 @@ import { Go } from '../../store/app-routes';
       (searchUsers)="searchUsers($event)"
       (addUsersToProject)="addUsersToProject($event)"
       (goToBacklog)="goToBacklog($event)"
+      (navigateToSprints)="navigateToSprints($event)"
     >
     </app-project-summary-component>
   `,
@@ -59,6 +60,10 @@ export class ProjectSummaryContainer implements OnInit {
     let id;
     this.router.params.subscribe(value => id = value.id);
     this.store.dispatch(new Go({ path: [`project/${id}/backlog`] }));
+  }
+
+  navigateToSprints(id: string) {
+    this.store.dispatch(new Go({ path: [`project/${id}/sprints`] }));
   }
 
 }

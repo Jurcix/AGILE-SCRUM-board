@@ -19,6 +19,7 @@ export class ProjectSummaryComponent implements OnInit {
   @Output() searchUsers = new EventEmitter<Object>();
   @Output() addUsersToProject = new EventEmitter<UsersIds>();
   @Output() goToBacklog = new EventEmitter<void>();
+  @Output() navigateToSprints = new EventEmitter<string>();
 
   userSearchInput: FormControl;
   usersEmails = new BehaviorSubject<string[]>([]);
@@ -62,5 +63,9 @@ export class ProjectSummaryComponent implements OnInit {
 
   onGoToBacklog() {
     this.goToBacklog.emit();
+  }
+
+  onNavigateToSprints(id: string) {
+    this.navigateToSprints.emit(id);
   }
 }

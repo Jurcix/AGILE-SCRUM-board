@@ -1,0 +1,58 @@
+.main-card {
+  border-top: 3px solid #374785;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.doughnut-chart {
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.scrugile-card {
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 5%;
+}
+
+.background-image {
+  background-image: url("../../../assets/sprints-subheader.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.md-form.form-sm.form-colors input {
+  text-align: center;
+  font-size: 16px;
+}
+
+.center-text-select {
+  text-align-last: center;
+}
+
+select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+select:focus {
+  border-bottom: 2px solid #66cdaa;
+  outline: none
+}
+
+.form-colors input:focus {
+  border-bottom: 1px solid #66cdaa;
+  box-shadow: 0 1px 0 0 #66cdaa;
+}
+
+input:focus:not([readonly])+label {
+  color: #66cdaa !important;
+}

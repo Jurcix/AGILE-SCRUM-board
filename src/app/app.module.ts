@@ -18,12 +18,14 @@ import { appRoutes } from './app-routes/app-routes';
 import { CustomSerializer, RouterEffects } from './store/app-routes';
 import { ProfileEffects } from './store/profile';
 import { ProjectEffects } from './store/project';
+import { SprintEffects } from './store/sprints';
 
 import { AppComponent } from './app.component';
 import { HeaderModule } from './UI/header/header.module';
 import { LandingModule } from './pages/landing/landing.module';
 import { SignUpModule } from './pages/sign-up/sign-up.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { SprintsModule } from './pages/sprints/sprints.module';
 import { ProjectSummaryModule } from './pages/project-summary/project-summary.module';
 import { StoryEffects } from './store/story';
 
@@ -45,6 +47,7 @@ import { StoryEffects } from './store/story';
       ProjectEffects,
       StoryEffects,
       RouterEffects,
+      SprintEffects,
     ]),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'routerReducer'
@@ -59,6 +62,7 @@ import { StoryEffects } from './store/story';
     DashboardModule,
     ProjectSummaryModule,
     BacklogModule,
+    SprintsModule,
   ],
   providers: [
     {
