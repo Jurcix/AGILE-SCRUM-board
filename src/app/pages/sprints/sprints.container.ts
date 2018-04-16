@@ -10,7 +10,7 @@ import { getSprintSummaries } from './../../store/sprints/selectors';
 @Component({
   selector: 'app-sprints',
   template: `
-    <app-sprints-component *ngIf="(sprints$ | async).length"
+    <app-sprints-component
       [sprints]="sprints$ | async"
       (addSprints)=addSprints($event)>
     </app-sprints-component>

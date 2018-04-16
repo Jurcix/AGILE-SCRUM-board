@@ -3,8 +3,8 @@
   <div class="background-image">
     <div class="row align-items-end">
       <div class="col mt-5 mx-5 mb-4">
-        <i class="fa fa-cube fa-3x scrugile-text-color-secondary"></i>
-        <span class="scrugile-text-title-small scrugile-text-color-secondary">PROJEKTO SPRITNAI</span>
+        <i class="fa fa-paper-plane-o fa-3x scrugile-text-color-secondary"></i>
+        <span class="scrugile-text-title-small scrugile-text-color-secondary">Projekto sprintai</span>
         <div class="scrugile-text-color-secondary"> Cia yra projekto aprasas </div>
       </div>
       <div class="col-2 mr-3">
@@ -17,7 +17,7 @@
   </div>
 
   <div class="card-body">
-    <div *ngIf="sprints">
+    <div *ngIf="sprints.length">
 
       <div *ngFor="let sprint of sprints, let i = index">
 
@@ -43,18 +43,18 @@
                   </div>
 
                   <div class="col-4 mr-2">
-                    <div class="scrugile-text-heading text-right"> 
+                    <div class="scrugile-text-heading text-right">
                       {{formatTime(sprint.time.days , sprint.period)}}
                     </div>
-                    <div class="scrugile-text-heading-small text-right"> 
-                      {{displayTimeLabel(sprint.time.days)}} 
+                    <div class="scrugile-text-heading-small text-right">
+                      {{displayTimeLabel(sprint.time.days)}}
                     </div>
                   </div>
                 </div>
                 <hr>
                 <div class="row align-middle">
                   <div class="col-3 ml-3 pt-2">
-                    <p>Sprinto statusas: 
+                    <p>Sprinto statusas:
                       <span class="scrugile-text-bold">{{sprint.state}}</span>
                     </p>
                   </div>

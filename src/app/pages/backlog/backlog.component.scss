@@ -75,12 +75,17 @@ textarea:focus:not([readonly])+label {
   color: #66cdaa !important;
 }
 
+.scrollable-story-box {
+  overflow-y: auto;
+  max-height: 150px;
+}
+
 ::ng-deep .cdk-overlay-container{
   z-index: 10001 !important;
 }
 
 @media (min-width: 576px) {
-  .modal-dialog {
+  .modal-lg {
     max-width: 70%;
   }
 }

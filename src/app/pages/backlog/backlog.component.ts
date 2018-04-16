@@ -1,10 +1,12 @@
 import { Story } from './../../types/story';
 import { Observable } from 'rxjs/';
 import { FilteredUsers } from './../../types/project';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { createSelectorFactory } from '@ngrx/store';
-import { path, map } from 'ramda';
+import { path, map, takeLast } from 'ramda';
+import { take } from 'rxjs/operators/take';
+import { SprintSummary } from '../../types/sprint';
 
 @Component({
   selector: 'app-backlog-component',
@@ -14,11 +16,14 @@ import { path, map } from 'ramda';
 export class BacklogComponent implements OnInit {
   @Input() filteredUsers: Observable<FilteredUsers[]>;
   @Input() stories: Story[];
+  @Input() sprints: SprintSummary[];
 
   @Output() searchUsers = new EventEmitter<Object>();
   @Output() createStory = new EventEmitter<Story>();
   @Output() deleteStories = new EventEmitter<string[]>();
+  @Output() moveToSprint = new EventEmitter<Object>();
 
+  selectedSprint = new FormControl('');
   storyForm: FormGroup;
   storyPointOptions = [
     { value: 'extraLarge', name: 'Labai didelė' },
@@ -35,6 +40,16 @@ export class BacklogComponent implements OnInit {
     { value: 'medium', name: 'Vidutinė' },
     { value: 'minor', name: 'Nesvarbi' },
   ];
+
+  get selectedSprintStories() {
+    if (this.selectedSprint.value) {
+      const sprintStories = this.sprints.find(
+        sprint => sprint.indicator === Number(this.selectedSprint.value)
+      ).stories;
+      const selectedStories = this.stories.filter(value => path(['selected'], value));
+      return [...selectedStories, ...sprintStories];
+    }
+  }
 
   constructor(private fb: FormBuilder) { }
 
@@ -63,6 +78,11 @@ export class BacklogComponent implements OnInit {
   }
 
   onCreateStory(story: Story) {
+    let userId;
+    this.filteredUsers.pipe(
+      take(1)
+    ).subscribe(value => userId = value);
+    this.storyForm.controls['assignee'].setValue(userId);
     this.createStory.emit(story);
   }
 
@@ -77,5 +97,13 @@ export class BacklogComponent implements OnInit {
     );
 
     this.deleteStories.emit(deleteStories);
+  }
+
+  onMoveToSprint() {
+    const moveStories = map(
+      story => story.id,
+      this.stories.filter(value => path(['selected'], value))
+    );
+    this.moveToSprint.emit({ stories: moveStories, indicator: this.selectedSprint.value});
   }
 }

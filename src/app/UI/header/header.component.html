@@ -1,4 +1,4 @@
-<mdb-navbar *ngIf="isLoggedIn" SideClass="navbar navbar-expand-lg scrugile-color-main" id="scrugile-header">
+<mdb-navbar *ngIf="isLoggedIn" SideClass="navbar navbar-expand-lg scrugile-color-main sticky-top" id="scrugile-header">
 
   <logo>
     <a class="navbar-brand scrugile-text-color-success scrugile-text-title-small p-0 view hm-zoom" href="#">
@@ -6,15 +6,20 @@
     </a>
   </logo>
 
-  <links *ngIf="true">
+  <links *ngIf="isProjectSelected">
     <ul class="nav navbar-nav ml-auto">
       <li class="nav-item active scrugile-text-color-secondary px-2 hoverable">
-        <a class="nav-link waves-light" mdbRippleRadius>
+        <a (click)="goToProjectSummary()" class="nav-link waves-light" mdbRippleRadius>
+          Projekto aprašas
+        </a>
+      </li>
+      <li class="nav-item active scrugile-text-color-secondary px-2 hoverable">
+        <a (click)="goToBacklog()" class="nav-link waves-light" mdbRippleRadius>
           Darbų sąrašas
         </a>
       </li>
       <li class="nav-item scrugile-text-color-secondary px-2 hoverable">
-        <a class="nav-link waves-light" mdbRippleRadius>
+        <a (click)="goToSprints()" class="nav-link waves-light" mdbRippleRadius>
           Sprintai
         </a>
       </li>
@@ -39,7 +44,7 @@
       <li class="nav-item scrugile-text-color-secondary dropdown px-2 py-1 hoverable" dropdown>
         <a class="fa fa-user-circle-o fa-2x" dropdownToggle></a>
         <div class="dropdown-menu dropdown-menu-right px-2">
-          <a class="dropdown-item waves-light hoverable" mdbRippleRadius>Mano paskyra</a>
+          <a (click)="goToDashboard()" class="dropdown-item waves-light hoverable" mdbRippleRadius>Mano paskyra</a>
           <a class="dropdown-item waves-light hoverable" mdbRippleRadius>Atsijungti</a>
         </div>
       </li>

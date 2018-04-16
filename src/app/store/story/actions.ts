@@ -83,7 +83,7 @@ export class LoadStoryError implements Action {
 export class DeleteStoryRequest implements Action {
   type = STORY.DELETE.REQUEST;
 
-  constructor(public payload: string[]) { }
+  constructor(public payload: { stories: string[] }) { }
 }
 
 export class DeleteStorySuccess implements Action {
