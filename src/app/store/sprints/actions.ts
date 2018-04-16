@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { SprintSummary, Sprints } from './../../types/sprint';
+import { Story } from '../../types/story';
 
 export const SPRINT = {
   LIST: {
@@ -12,7 +13,13 @@ export const SPRINT = {
     SUCCESS: '[Sprint create] successful',
     ERROR: '[Sprint create] failed',
   },
+  ADD_STORIES: {
+    REQUEST: '[Sprint add stories] requested',
+    SUCCESS: '[Sprint add stories] successful',
+    ERROR: '[Sprint add stories] failed',
+  }
 };
+
 
 export class SprintListRequest implements Action {
   type = SPRINT.LIST.REQUEST;
@@ -50,5 +57,24 @@ export class SprintCreateError implements Action {
   constructor(public payload: Error) { }
 }
 
+export class AddStoriesToSprintRequest implements Action {
+  type = SPRINT.ADD_STORIES.REQUEST;
+
+  constructor(public payload: { stories: Story[], indicator: number }) { }
+}
+
+export class AddStoriesToSprintSuccess implements Action {
+  type = SPRINT.ADD_STORIES.SUCCESS;
+
+  constructor(public payload: SprintSummary) { }
+}
+
+export class AddStoriesToSprintError implements Action {
+  type = SPRINT.ADD_STORIES.ERROR;
+
+  constructor(public payload: Error) { }
+}
+
 export type SprintActions =
-SprintListRequest | SprintListSuccess | SprintListError;
+SprintListRequest | SprintListSuccess | SprintListError |
+AddStoriesToSprintRequest | AddStoriesToSprintSuccess | AddStoriesToSprintError;

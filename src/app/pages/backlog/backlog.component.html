@@ -18,7 +18,7 @@
         <a (click)="onDeleteStories()" class="underline-text mx-3">
           <i class="fa fa-minus scrugile-text-color-primary-light"></i> Ištrinti
         </a>
-        <a class="underline-text mx-3">
+        <a (click)="moveToSprintModal.show()" class="underline-text mx-3">
           <i class="fa fa-arrow-right scrugile-text-color-primary-light"></i> Perkelti į kitą sprintą
         </a>
       </div>
@@ -43,7 +43,7 @@
               <th>{{ story.name }}</th>
               <th>{{ story.priority }}</th>
               <th>{{ story.storyPoints }}</th>
-              <th>{{ story.assignee }}</th>
+              <th>{{ story.assignee.name }} {{ story.assignee.lastName}}</th>
               <th>
                 <mat-checkbox [(ngModel)]="story.selected"></mat-checkbox>
               </th>
@@ -68,7 +68,7 @@
   role="dialog"
   aria-labelledby="myModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog cascading-modal" role="document">
+  <div class="modal-dialog modal-lg add-stories cascading-modal" role="document">
     <div class="modal-content">
 
       <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
@@ -109,7 +109,7 @@
                   (input)="onSearchUsers(storyForm.controls['assignee'].value)"
                   >
                 <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user.id">
+                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user.email">
                     <span>{{ user.email }}</span>
                   </mat-option>
                 </mat-autocomplete>
@@ -133,6 +133,7 @@
         <div class="text-center py-3">
           <button type="submit"
             class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light"
+            [disabled]="!storyForm.valid"
             mdbRippleRadius>
             Patvirtinti
           </button>
@@ -144,6 +145,65 @@
           </button>
         </div>
         </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ------------------------------------------- Move to Sprint Modal ------------------------------ -->
+
+<div mdbModal
+  #moveToSprintModal="mdb-modal"
+  [config]="{ backdrop: 'static' }"
+  class="modal fade"
+  id="add-stories-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header scrugile-color-main scrugile-text-color-secondary">
+        <h4 class="title"> Perkėlimas į sprintą </h4>
+      </div>
+
+      <div class="modal-body">
+        <select id="modal-sprints" [formControl]="selectedSprint" class="form-control">
+          <option value="" class="disabled-option" disabled selected>Pasirinkite sprintą</option>
+          <option *ngFor="let sprint of sprints" [value]="sprint.indicator">Sprint - {{ sprint.indicator }}</option>
+        </select>
+
+        <div *ngIf="selectedSprint" class="mt-4 scrollable-story-box">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngFor="let story of selectedSprintStories">
+                <td class="p-1 table-text-align-center">
+                  {{ story.code }} {{ story.name }} <span *ngIf="story.selected" class="badge badge-success">Nauja!</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-body mb-0 mx-4">
+        <div class="text-center py-3">
+          <button type="button"
+            (click)="onMoveToSprint(); moveToSprintModal.hide()"
+            class="btn scrugile-color-secondary scrugile-text-color-main mb-2 waves-light"
+            mdbRippleRadius>
+            Patvirtinti
+          </button>
+          <button (click)="moveToSprintModal.hide()"
+            type="button"
+            class="btn scrugile-color-attention scrugile-text-color-main mb-2 waves-light"
+            mdbRippleRadius>
+            Atšaukti
+          </button>
+        </div>
 
       </div>
     </div>

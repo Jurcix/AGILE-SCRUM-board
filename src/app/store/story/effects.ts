@@ -33,7 +33,7 @@ export class StoryEffects {
       withLatestFrom(this.store.select(getRouterState)),
       switchMap(([payload, router]) => {
         const id = router.state.params.id;
-        return this.http.post(`${environment.apiURL}v1/users/find-users`, payload)
+        return this.http.post(`${environment.apiURL}v1/users/${id}/find-users`, payload)
           .pipe(
             map((data: FilteredUsers[]) => new StoryActions.SearchAssigneesSuccess(data)),
             catchError(err => of(new StoryActions.SearchAssigneesError(err))),
@@ -76,10 +76,12 @@ export class StoryEffects {
   $DeleteStories: Observable<StoryActions.StoryActions> = this.actions$
     .ofType(StoryActions.STORY.DELETE.REQUEST)
     .pipe(
+      map((action: StoryActions.DeleteStoryRequest) => action.payload),
       withLatestFrom(this.store.select(getRouterState)),
       switchMap(([payload, router]) => {
         const id = router.state.params.id;
-        return this.http.delete(`${environment.apiURL}v1/stories/${id}/delete-stories`)
+        return this.http.post(
+          `${environment.apiURL}v1/stories/${id}/delete-stories`, payload)
           .pipe(
             map(() => new StoryActions.DeleteStorySuccess()),
             catchError(err => of(new StoryActions.DeleteStoryError(err))),

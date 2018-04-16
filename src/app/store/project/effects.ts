@@ -99,6 +99,20 @@ export class ProjectEffects {
     );
 
   @Effect()
+  $SearchUsers: Observable<ProjectActions.ProjectActions> = this.actions$
+    .ofType(ProjectActions.SEARCH_USERS.REQUEST)
+    .pipe(
+      map((action: ProjectActions.SearchUsersRequest) => action.payload),
+      switchMap((payload) => {
+        return this.http.post(`${environment.apiURL}v1/users/find-users`, payload)
+          .pipe(
+            map((data: FilteredUsers[]) => new ProjectActions.SearchUsersSuccess(data)),
+            catchError(err => of(new ProjectActions.SearchUsersError(err))),
+          );
+      })
+    );
+
+  @Effect()
   $AddUsers: Observable<ProjectActions.ProjectActions> = this.actions$
     .ofType(ProjectActions.ADD_USERS.REQUEST)
     .pipe(

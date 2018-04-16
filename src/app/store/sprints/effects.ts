@@ -52,4 +52,30 @@ export class SprintEffects {
           );
       })
     );
+
+  @Effect()
+  $addStoriesToSprint: Observable<SprintActions.SprintActions> = this.actions$
+    .ofType(SprintActions.SPRINT.ADD_STORIES.REQUEST)
+    .pipe(
+      map((action: SprintActions.AddStoriesToSprintRequest) => action.payload),
+      withLatestFrom(this.store.select(getRouterState)),
+      switchMap(([payload, route]) => {
+        const id = route.state.params.id;
+        return this.http.patch(
+          `${environment.apiURL}v1/sprints/${id}/${payload.indicator}/update-sprint`,
+          { stories: payload.stories })
+          .pipe(
+            map((newSprint: SprintSummary) =>
+              new SprintActions.AddStoriesToSprintSuccess(newSprint)),
+            catchError(err => of(new SprintActions.AddStoriesToSprintError(err))),
+          );
+      })
+    );
+
+  @Effect()
+  $addStoriesToSprintSuccess: Observable<SprintActions.SprintActions> = this.actions$
+    .ofType(SprintActions.SPRINT.ADD_STORIES.SUCCESS)
+    .pipe(
+      map(() => new SprintActions.SprintListRequest())
+    );
 }
